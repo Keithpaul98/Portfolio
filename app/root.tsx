@@ -5,10 +5,15 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  Routes,
+  Route,
 } from "react-router";
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import Home from "./routes/home";
+import Projects from "./routes/projects";
+import Contact from "./routes/contact";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -42,7 +47,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/projects" element={<Projects />} />
+      <Route path="/contact" element={<Contact />} />
+    </Routes>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
