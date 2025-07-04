@@ -13,9 +13,13 @@ This portfolio website is built using modern web technologies to showcase your p
 ```
 portfolio/
 ├── app/                    # Main application code
+│   ├── data/               # Shared data files
+│   │   └── projects.ts     # Project data and interfaces
 │   ├── routes/             # Page components for different routes
 │   │   ├── home.tsx        # Home page component
-│   │   ├── projects.tsx    # Projects showcase page
+│   │   ├── projects.tsx    # Projects layout component
+│   │   │   ├── index.tsx   # Projects listing page
+│   │   │   └── $projectId.tsx # Individual project detail page
 │   │   └── contact.tsx     # Contact page
 │   ├── welcome/            # Welcome components
 │   ├── root.tsx            # Root layout and routing setup
@@ -42,7 +46,7 @@ TypeScript adds static typing to JavaScript, which helps catch errors during dev
 
 **Type Definitions**: 
 ```typescript
-// Example from projects.tsx
+// Example from projects.ts
 interface Project {
     id: string;
     title: string;
@@ -51,6 +55,10 @@ interface Project {
     imageUrl: string;
     liveUrl?: string;  // The ? means this property is optional
     githubUrl?: string;
+    longDescription?: string;
+    startDate?: string;
+    endDate?: string;
+    features?: string[];
 }
 ```
 
@@ -69,7 +77,10 @@ React Router is a standard library for routing in React applications. It enables
 // From routes.ts
 export default [
   index("routes/home.tsx"),
-  route("projects", "routes/projects.tsx"),
+  route("projects/*", "routes/projects.tsx", [
+    index("routes/projects/index.tsx"),
+    route(":projectId", "routes/projects/$projectId.tsx")
+  ]),
   route("contact", "routes/contact.tsx"),
 ] satisfies RouteConfig;
 ```
@@ -109,11 +120,70 @@ Tailwind is a utility-first CSS framework that allows you to build designs direc
 - Made the navigation responsive with a mobile menu button
 - Fixed TypeScript errors by renaming imported types to avoid conflicts
 
+### 4. Nested Routing Implementation (July 4, 2025)
+- Created a shared data file (`app/data/projects.ts`) with Project interface and sample project data
+- Enhanced the Project interface with additional fields (longDescription, dates, features)
+- Added a helper function to extract all unique technologies for filtering
+- Restructured the projects section to use nested routing:
+  - `projects.tsx` now serves as a layout component with common header/footer
+  - `projects/index.tsx` handles project listing with search and filtering
+  - `projects/$projectId.tsx` displays detailed project information
+- Fixed routing configuration in `routes.ts` to support nested routes using wildcard (`*`)
+- Fixed TypeScript errors related to verbatimModuleSyntax by using type-only imports
+- Simplified the App component in `root.tsx` to work with server-side rendering
+
+### 5. Bug Fixes and Challenges (July 4, 2025)
+- Fixed React Router warning about missing trailing wildcard by updating route path to `projects/*`
+- Resolved TypeScript errors with type-only imports using `import type { Project } from '...'`
+- Fixed server-side rendering issues with `createBrowserRouter`:
+  - Removed client-side only router creation that was causing "document is not defined" errors
+  - Simplified App component to return Layout with Outlet
+  - Updated routes configuration to work with React Router v7's server-side rendering
+- Updated .gitignore file with standard patterns for React projects
+- Successfully pushed the project to GitHub repository
+
+## Common Errors and Solutions
+
+### 1. TypeScript Type vs Component Name Conflicts
+When you have a component and a type with the same name, use type aliases:
+```typescript
+import { Route } from "react-router"; // Component
+import type { Route as RouteType } from "./types"; // Type
+```
+
+### 2. Server-Side Rendering with React Router v7
+Error: `ReferenceError: document is not defined`
+
+Solution: Don't use `createBrowserRouter` in components that render on the server. Instead:
+- Use the route configuration from `routes.ts`
+- Simplify the App component to return Layout with Outlet
+- Let React Router's built-in server-side rendering handle the routing
+
+### 3. Nested Routes Not Rendering
+Error: Child routes not showing up in parent route
+
+Solution: 
+- Add wildcard (`*`) to parent route path: `projects/*`
+- Ensure parent component renders an `<Outlet />` component
+- Configure nested routes properly in `routes.ts`
+
+### 4. Type Import Errors with verbatimModuleSyntax
+Error: `This import is never used as a value and must use 'import type'`
+
+Solution: Use type-only imports for interfaces and types:
+```typescript
+import type { Project } from '../../data/projects';
+```
+
 ## Next Steps
 - Implement mobile menu functionality
 - Add a footer component
 - Enhance the home page with personal information and skills
 - Add animations and transitions between pages
+- Add more projects to the data file
+- Implement pagination or infinite scroll for projects
+- Add contact form functionality
+- Optimize images and performance
 
 ## React & TypeScript Tips
 
@@ -149,9 +219,21 @@ function ProjectCard({ project }: { project: Project }) {
 ))}
 ```
 
-### TypeScript Type vs Component Name Conflicts
-When you have a component and a type with the same name, use type aliases:
-```typescript
-import { Route } from "react-router"; // Component
-import type { Route as RouteType } from "./types"; // Type
-```
+### React Router v7 Nested Routes
+```tsx
+// Parent component (Layout)
+function Projects() {
+  return (
+    <>
+      <header>Common header</header>
+      <Outlet /> {/* Child routes render here */}
+      <footer>Common footer</footer>
+    </>
+  );
+}
+
+// Route configuration
+route("projects/*", "routes/projects.tsx", [
+  index("routes/projects/index.tsx"),
+  route(":projectId", "routes/projects/$projectId.tsx")
+])
