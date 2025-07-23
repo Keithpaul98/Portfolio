@@ -3,6 +3,45 @@ import { Meta, Link, useParams, useNavigate } from "react-router";
 import { projects } from "../../data/projects";
 import type { Project } from "../../data/projects";
 
+// ImageGallery Component
+function ImageGallery({ images, title }: { images: string[]; title: string }) {
+    const [selectedImage, setSelectedImage] = useState(0);
+
+    return (
+        <div className="space-y-4">
+            {/* Main Image Display */}
+            <div className="h-64 md:h-96 overflow-hidden rounded-lg">
+                <img 
+                    src={images[selectedImage]} 
+                    alt={`${title} - Image ${selectedImage + 1}`}
+                    className="w-full h-full object-cover"
+                />
+            </div>
+            
+            {/* Thumbnail Navigation */}
+            <div className="flex gap-2 overflow-x-auto pb-2">
+                {images.map((image, index) => (
+                    <button
+                        key={index}
+                        onClick={() => setSelectedImage(index)}
+                        className={`flex-shrink-0 w-20 h-16 rounded-md overflow-hidden border-2 transition-all ${
+                            selectedImage === index 
+                                ? 'border-blue-500 opacity-100' 
+                                : 'border-gray-600 opacity-70 hover:opacity-100'
+                        }`}
+                    >
+                        <img 
+                            src={image} 
+                            alt={`${title} thumbnail ${index + 1}`}
+                            className="w-full h-full object-cover"
+                        />
+                    </button>
+                ))}
+            </div>
+        </div>
+    );
+}
+
 export function meta({ params }: { params: { projectId: string } }) {
     const project = projects.find(p => p.id === params.projectId);
     
@@ -81,26 +120,49 @@ export default function ProjectDetail() {
             <div className="bg-gray-800 rounded-lg overflow-hidden shadow-xl">
                 {/* Project Header */}
                 <div className="relative">
-                    <div className="h-64 md:h-96 overflow-hidden">
-                        <img 
-                            src={project.imageUrl} 
-                            alt={project.title}
-                            className="w-full h-full object-cover"
-                        />
-                    </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent flex items-end">
+                    {/* Image Display - Gallery or Single Image */}
+                    {project.images && project.images.length > 1 ? (
                         <div className="p-6 md:p-8">
+                            <ImageGallery images={project.images} title={project.title} />
+                        </div>
+                    ) : (
+                        <div className="h-64 md:h-96 overflow-hidden">
+                            <img 
+                                src={project.imageUrl} 
+                                alt={project.title}
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+                    )}
+                    
+                    {/* Project Title Overlay - only for single images */}
+                    {!(project.images && project.images.length > 1) && (
+                        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent flex items-end">
+                            <div className="p-6 md:p-8">
+                                <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">{project.title}</h1>
+                                {(project.startDate || project.endDate) && (
+                                    <p className="text-gray-300 text-sm mb-2">
+                                        {project.startDate} {project.endDate && project.startDate ? '- ' : ''} {project.endDate}
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+                    )}
+                </div>
+                
+                <div className="p-6 md:p-8 text-white">
+                    {/* Project Title for Gallery Projects */}
+                    {project.images && project.images.length > 1 && (
+                        <div className="mb-6">
                             <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">{project.title}</h1>
                             {(project.startDate || project.endDate) && (
-                                <p className="text-gray-300 text-sm mb-2">
+                                <p className="text-gray-300 text-sm">
                                     {project.startDate} {project.endDate && project.startDate ? '- ' : ''} {project.endDate}
                                 </p>
                             )}
                         </div>
-                    </div>
-                </div>
-                
-                <div className="p-6 md:p-8 text-white">
+                    )}
+                    
                     {/* Project Links */}
                     <div className="flex flex-wrap gap-4 mb-8">
                         {project.liveUrl && (

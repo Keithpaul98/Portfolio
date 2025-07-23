@@ -22,7 +22,7 @@ export const projects: Project[] = [
         description: "A modern portfolio website built with React Router and Tailwind CSS to showcase my projects and skills.",
         technologies: ["React", "TypeScript", "Tailwind CSS", "React Router", "Vite"],
         imageUrl: "https://via.placeholder.com/800x400?text=Portfolio+Website",
-        githubUrl: "https://github.com/keithpaul98/portfolio",
+        githubUrl: "https://github.com/Keithpaul98/Portfolio",
         features: [
             "Responsive design that works on all devices",
             "Dark theme with modern UI elements",
@@ -40,7 +40,7 @@ export const projects: Project[] = [
         description: "A comprehensive habit tracking application to help users build and maintain positive daily habits.",
         technologies: ["Flutter", "Local Storage"],
         imageUrl: "/images/habit_tracker.jpg",
-        githubUrl: "https://github.com/keithpaul98/habit-tracker",
+        githubUrl: "https://github.com/Keithpaul98/Habit-Tracker-App",
         features: [
             "Track Multiple Habits: Create and manage multiple habits in a single interface",
             "Completion Tracking: Mark habits as complete/incomplete with a simple tap",
@@ -61,26 +61,37 @@ export const projects: Project[] = [
         id: "hairstyling-system",
         title: "Personalized Hairstyling System",
         description: "An intelligent hairstyling recommendation system that provides personalized hair care and styling suggestions.",
-        technologies: ["JavaScript", "HTML", "CSS", "Machine Learning", "API Integration", "Django"],
-        imageUrl: "/images/preview.jpg",
+        technologies: ["Django", "PostgreSQL", "HTML", "CSS", "JavaScript", "PyTorch", "OpenCV", "Diffusers", "Stripe", "xhtml2pdf", "reportlab"],
+        imageUrl: "/images/preview.png",
         images: [ // Additional gallery images
-            "/images/LBD.jpg",
-            "/images/graphs.jpg", 
+            "/images/LBD.png",
+            "/images/graphs.png", 
             "/images/staffd.png",
             "/images/stockd.png"
         ],
-        githubUrl: "https://github.com/keithpaul98/hairstyling-system",
+        githubUrl: "https://github.com/Keithpaul98/Personalised-Hairstyle-System",
         features: [
-            "Personalized hairstyle recommendations",
-            "Face shape analysis and matching",
-            "Hair type and texture assessment",
-            "Styling tips and tutorials",
-            "Product recommendations",
-            "Before/after visualization tools"
+            "User Management: Role-based access control (admin, stylist, customer)",
+            "User profiles and authentication with customer management",
+            "Appointment Scheduling: Online booking system with calendar integration",
+            "Appointment reminders and notifications",
+            "Virtual Hair Try-On: AI-powered virtual hairstyle simulation",
+            "Face analysis for personalized style recommendations",
+            "Preview different hair colors and styles",
+            "Service Management: Service catalog with pricing and customization",
+            "Service image gallery",
+            "Payment Processing: Secure Stripe integration with invoice generation",
+            "Payment history tracking",
+            "Inventory Management: Stock tracking with low stock alerts",
+            "Product management system",
+            "Reporting & Analytics: Sales reports and stylist performance metrics",
+            "Customer analytics and insights",
+            "Communication Tools: In-app messaging system",
+            "Notification center and customer feedback"
         ],
-        longDescription: "The Personalized Hairstyling System is an innovative web application that uses intelligent algorithms to provide customized hairstyle recommendations. By analyzing user inputs such as face shape, hair type, lifestyle preferences, and personal style, the system suggests suitable hairstyles and provides detailed styling instructions. The application includes features for hair care tips, product recommendations, and styling tutorials, making it a comprehensive solution for anyone looking to enhance their hair styling routine.",
+        longDescription: "The Personalized Hairstyling System is a comprehensive business management platform designed specifically for hair salons and styling businesses. This sophisticated web application combines AI-powered virtual hair try-on technology with complete business operations management. The system features role-based access control for admins, stylists, and customers, along with advanced appointment scheduling, inventory management, and payment processing through Stripe integration. The AI components, built with PyTorch and OpenCV, provide virtual hairstyle simulation and face analysis for personalized recommendations. Additional features include comprehensive reporting and analytics, in-app communication tools, and a complete service management system with pricing and customization options.",
         startDate: "2024",
-        endDate: "2024"
+        endDate: "Present"
     }
 ];
 
