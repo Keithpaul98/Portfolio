@@ -12,6 +12,7 @@ import {
 
 import type { Route as RouteType } from "./+types/root";
 import "./app.css";
+import "./styles/animations.css";
 import Home from "./routes/home";
 import Projects from "./routes/projects";
 import Contact from "./routes/contact";
