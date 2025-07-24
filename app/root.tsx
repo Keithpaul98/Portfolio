@@ -27,11 +27,13 @@ export const links: RouteType.LinksFunction = () => [
     rel: "stylesheet",
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   },
-  // Custom favicon with better browser support
-  { rel: "icon", type: "image/svg+xml", href: "/favicon.svg?v=1" },
-  { rel: "icon", type: "image/x-icon", href: "/favicon.ico?v=1" },
-  { rel: "shortcut icon", href: "/favicon.ico?v=1" },
-  { rel: "apple-touch-icon", sizes: "180x180", href: "/favicon.svg?v=1" },
+  // Favicon with strong cache busting
+  { rel: "icon", type: "image/svg+xml", href: "/favicon.svg?t=" + new Date().getTime() },
+  { rel: "shortcut icon", href: "/favicon.svg?t=" + new Date().getTime() },
+  { rel: "apple-touch-icon", sizes: "180x180", href: "/favicon.svg?t=" + new Date().getTime() },
+  // Additional favicon formats for better browser support
+  { rel: "icon", sizes: "16x16", type: "image/x-icon", href: "/favicon.ico?v=" + Date.now() },
+  { rel: "icon", sizes: "32x32", type: "image/x-icon", href: "/favicon.ico?v=" + Date.now() },
 ];
 
 // Navigation component
@@ -239,6 +241,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Keith Paul Nkwanda - Portfolio</title>
+        <meta name="description" content="Full-Stack Developer & Software Engineer specializing in React, TypeScript, and modern web technologies" />
         {/* <Meta /> - Temporarily commented out due to React 19 compatibility issue */}
         <Links />
       </head>

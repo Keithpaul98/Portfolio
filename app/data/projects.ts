@@ -18,27 +18,36 @@ export interface Project {
 export const projects: Project[] = [
     {
         id: "portfolio",
-        title: "Personal Portfolio",
-        description: "A modern portfolio website built with React Router and Tailwind CSS to showcase my projects and skills.",
-        technologies: ["React", "TypeScript", "Tailwind CSS", "React Router", "Vite"],
-        imageUrl: "https://via.placeholder.com/800x400?text=Portfolio+Website",
+        title: "Personal Portfolio Website",
+        description: "A modern, production-ready portfolio website with real contact functionality, professional branding, and responsive design built with React Router v7 and TypeScript.",
+        technologies: ["React", "TypeScript", "Tailwind CSS", "React Router v7", "Vite", "EmailJS", "SVG"],
+        imageUrl: "/images/port.png",
         githubUrl: "https://github.com/Keithpaul98/Portfolio",
         features: [
-            "Responsive design that works on all devices",
-            "Dark theme with modern UI elements",
-            "Project filtering and search functionality",
-            "Detailed project pages with comprehensive information",
-            "Docker deployment ready"
+            "Fully functional contact form with EmailJS integration",
+            "Real email delivery to professional email address",
+            "WhatsApp integration for international clients (+265 99 333 1804)",
+            "Professional headshot and personal branding",
+            "Custom logo system with full and compact variants",
+            "Custom favicon with proper browser tab display",
+            "Modern glassmorphism design with gradients and animations",
+            "Responsive design optimized for all devices",
+            "Professional footer with social media links",
+            "React Router v7 + React 19 compatibility",
+            "Production build optimization with SSR support",
+            "Environment variable security configuration",
+            "Comprehensive documentation and deployment guide",
+            "Vercel deployment ready with performance optimization"
         ],
-        longDescription: "This portfolio website was built to showcase my skills and projects in web development. It features a clean, modern design with a focus on user experience. The site is built with React Router v7, TypeScript, and Tailwind CSS, demonstrating my proficiency in modern front-end technologies. The project structure includes routes for home, projects, and contact pages, with a dark theme featuring a gray/blue color scheme.",
+        longDescription: "This portfolio website represents a complete, production-ready web application showcasing modern full-stack development skills. Built with React Router v7 and TypeScript, it features real-world functionality including a working contact form that sends emails via EmailJS, WhatsApp integration for international client communication, and professional branding elements. The site demonstrates expertise in modern web technologies, responsive design principles, and production deployment practices. Key technical achievements include React Router v7 + React 19 compatibility resolution, comprehensive environment variable security, and optimized build performance with both client and server-side rendering support.",
         startDate: "July 2025",
-        endDate: "Present"
+        endDate: "July 2025"
     },
     {
         id: "habit-tracker",
         title: "Habit Tracker",
         description: "A comprehensive habit tracking application to help users build and maintain positive daily habits.",
-        technologies: ["Flutter", "Local Storage"],
+        technologies: ["Flutter", "Dart", "Shared Preferences"],
         imageUrl: "/images/habit_tracker.jpg",
         githubUrl: "https://github.com/Keithpaul98/Habit-Tracker-App",
         features: [
