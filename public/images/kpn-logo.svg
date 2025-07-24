@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80">
+  <defs>
+    <!-- Gradient representing diversity -->
+    <linearGradient id="diversityGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="25%" style="stop-color:#8B5CF6;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#06B6D4;stop-opacity:1" />
+      <stop offset="75%" style="stop-color:#10B981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F59E0B;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Solid gradient for text -->
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1F2937;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#374151;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Reliability circle gradient -->
+    <radialGradient id="reliabilityGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#1E40AF;stop-opacity:0.3" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Background circle representing reliability (stable foundation) -->
+  <circle cx="40" cy="40" r="32" fill="url(#reliabilityGradient)" opacity="0.1"/>
+  
+  <!-- Interlocking shapes representing diversity and collaboration -->
+  <g transform="translate(8, 8)">
+    <!-- First shape - representing diversity -->
+    <path d="M20 15 L35 25 L35 40 L20 50 L5 40 L5 25 Z" 
+          fill="url(#diversityGradient)" 
+          opacity="0.8"
+          transform="rotate(15 20 32.5)"/>
+    
+    <!-- Second shape - representing effectiveness (arrow/forward motion) -->
+    <path d="M25 20 L45 30 L40 35 L45 40 L25 50 L30 35 Z" 
+          fill="#3B82F6" 
+          opacity="0.9"/>
+    
+    <!-- Third shape - representing reliability (solid foundation) -->
+    <rect x="15" y="45" width="30" height="8" rx="4" 
+          fill="#1E40AF" 
+          opacity="0.7"/>
+  </g>
+  
+  <!-- Connecting lines showing integration -->
+  <path d="M25 25 Q40 20 55 30" stroke="url(#diversityGradient)" stroke-width="2" fill="none" opacity="0.6"/>
+  <path d="M30 45 Q45 35 60 40" stroke="url(#diversityGradient)" stroke-width="2" fill="none" opacity="0.6"/>
+  
+  <!-- Text - KPN -->
+  <text x="90" y="35" font-family="Arial, sans-serif" font-size="24" font-weight="bold" 
+        fill="url(#textGradient)" letter-spacing="2px">KPN</text>
+  
+  <!-- Tagline -->
+  <text x="90" y="52" font-family="Arial, sans-serif" font-size="10" 
+        fill="#6B7280" letter-spacing="1px">DIVERSE • RELIABLE • EFFECTIVE</text>
+  
+  <!-- Subtle accent line -->
+  <line x1="90" y1="42" x2="180" y2="42" stroke="url(#diversityGradient)" stroke-width="1" opacity="0.5"/>
+</svg>

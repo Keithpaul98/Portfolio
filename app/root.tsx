@@ -33,7 +33,6 @@ export const links: RouteType.LinksFunction = () => [
   { rel: "icon", type: "image/x-icon", href: "/favicon.ico?v=1" },
   { rel: "shortcut icon", href: "/favicon.ico?v=1" },
   { rel: "apple-touch-icon", sizes: "180x180", href: "/favicon.svg?v=1" },
-  { rel: "manifest", href: "/site.webmanifest" },
 ];
 
 // Navigation component
@@ -48,7 +47,13 @@ function Navigation() {
     <nav className="bg-gray-900 fixed w-full z-10 shadow-md">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
-          <Link to="/" className="text-white text-xl font-bold">Keith Paul Nkwanda</Link>
+          <Link to="/" className="flex items-center hover:opacity-80 transition-opacity duration-300">
+            <img 
+              src="/images/kpn-logo-compact.svg" 
+              alt="Keith Paul Nkwanda - KPN Logo" 
+              className="h-8 w-auto"
+            />
+          </Link>
           
           <div className="hidden md:flex space-x-8">
             <Link to="/" className={`${isActive('/')} transition-colors duration-300`}>Home</Link>
