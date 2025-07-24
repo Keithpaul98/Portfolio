@@ -1,0 +1,22 @@
+{
+  "name": "Keith Paul Nkwanda - Portfolio",
+  "short_name": "KPN Portfolio",
+  "description": "Professional portfolio of Keith Paul Nkwanda - Full-Stack Developer",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    }
+  ],
+  "theme_color": "#3B82F6",
+  "background_color": "#1F2937",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/"
+}

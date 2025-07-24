@@ -15,9 +15,22 @@ export function Welcome() {
           
           {/* Hero Section */}
           <header className="flex flex-col items-center gap-8 text-center">
+            {/* Profile Image */}
+            <div className="relative group animate-fade-in">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 rounded-full blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
+              <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-white/20 backdrop-blur-sm shadow-2xl transform group-hover:scale-105 transition-all duration-500">
+                <img 
+                  src="/images/keith-profile.jpg" 
+                  alt="Keith Paul Nkwanda - Professional Headshot"
+                  className="w-full h-full object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-white/10"></div>
+              </div>
+            </div>
+
             {/* Name with gradient text */}
             <div className="space-y-4">
-              <h1 className="text-6xl md:text-7xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent animate-fade-in">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent animate-fade-in">
                 Keith Paul Nkwanda
               </h1>
               <div className="h-1 w-32 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto rounded-full"></div>
