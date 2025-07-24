@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Link } from "react-router";
+import { Link } from "react-router";
 import { projects, getAllTechnologies } from "../../data/projects";
 import type { Project } from "../../data/projects";
 
@@ -76,12 +76,13 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
     );
 }
 
-export function meta() {
-    return [
-        { title: "Projects - Keith Paul Nkwanda" },
-        { name: "description", content: "Explore my portfolio of software development projects" },
-    ];
-}
+// Temporarily commented out due to React 19 compatibility issue
+// export function meta() {
+//   return [
+//     { title: "Projects - Keith Paul Nkwanda" },
+//     { name: "description", content: "Explore my portfolio of software development projects" },
+//   ];
+// }
 
 export default function ProjectsIndex() {
     const [searchTerm, setSearchTerm] = useState("");

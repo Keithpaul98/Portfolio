@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Meta, Link, useParams, useNavigate } from "react-router";
+import { Link, useParams, useNavigate } from "react-router";
 import { projects } from "../../data/projects";
 import type { Project } from "../../data/projects";
 
@@ -42,21 +42,20 @@ function ImageGallery({ images, title }: { images: string[]; title: string }) {
     );
 }
 
-export function meta({ params }: { params: { projectId: string } }) {
-    const project = projects.find(p => p.id === params.projectId);
-    
-    if (!project) {
-        return [
-            { title: "Project Not Found - Keith Paul Nkwanda" },
-            { name: "description", content: "The requested project could not be found." },
-        ];
-    }
-    
-    return [
-        { title: `${project.title} - Keith Paul Nkwanda` },
-        { name: "description", content: project.description },
-    ];
-}
+// Temporarily commented out due to React 19 compatibility issue
+// export function meta({ params }: { params: { projectId: string } }) {
+//   const project = projects.find(p => p.id === params.projectId);
+//   if (!project) {
+//     return [
+//       { title: "Project Not Found - Keith Paul Nkwanda" },
+//       { name: "description", content: "The requested project could not be found." },
+//     ];
+//   }
+//   return [
+//     { title: `${project.title} - Keith Paul Nkwanda` },
+//     { name: "description", content: project.description },
+//   ];
+// }
 
 export default function ProjectDetail() {
     const { projectId } = useParams();

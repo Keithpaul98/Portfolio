@@ -1,13 +1,92 @@
 import type { MetaFunction } from "react-router";
+import { useState } from "react";
+import emailjs from "@emailjs/browser";
 
-export const meta: MetaFunction = () => {
-  return [
-    { title: "Contact - Keith Paul Nkwanda" },
-    { name: "description", content: "Get in touch with Keith Paul Nkwanda for collaboration opportunities, project inquiries, or professional discussions." },
-  ];
-};
+// Temporarily commented out due to React 19 compatibility issue
+// export const meta: MetaFunction = () => {
+//   return [
+//     { title: "Contact - Keith Paul Nkwanda" },
+//     { name: "description", content: "Get in touch with Keith Paul Nkwanda for collaboration opportunities, project inquiries, or professional discussions." },
+//   ];
+// };
 
 export default function Contact() {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    subject: "",
+    message: ""
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
+
+    try {
+      // Initialize EmailJS explicitly
+      emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "xzRTkUBEGo3die3NY");
+      
+      // EmailJS configuration - using actual credentials
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || "kpnportfolio98";
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_78h4yu7";
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "xzRTkUBEGo3die3NY";
+
+      const templateParams = {
+        from_name: `${formData.firstName} ${formData.lastName}`,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message
+      };
+
+      console.log("📧 Sending email with params:", templateParams);
+      console.log("🔧 Using service:", serviceId, "template:", templateId);
+
+      const response = await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      
+      console.log("✅ EmailJS Response:", response);
+      console.log("📊 Response status:", response.status);
+      console.log("📝 Response text:", response.text);
+      
+      if (response.status === 200) {
+        setSubmitStatus("success");
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          subject: "",
+          message: ""
+        });
+        console.log("🎉 Email sent successfully!");
+      } else {
+        console.error("❌ Unexpected response status:", response.status);
+        setSubmitStatus("error");
+      }
+    } catch (error: any) {
+      console.error("💥 Email sending failed:", error);
+      console.error("🔍 Error details:", {
+        name: error?.name || "Unknown",
+        message: error?.message || "Unknown error",
+        status: error?.status || "No status",
+        text: error?.text || "No text"
+      });
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 relative overflow-hidden">
       {/* Animated background elements */}
@@ -35,28 +114,59 @@ export default function Contact() {
             {/* Contact Form */}
             <div className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 animate-fade-in">
               <h2 className="text-2xl font-bold text-white mb-6">Send a Message</h2>
-              <form className="space-y-6">
+              
+              {/* Success Message */}
+              {submitStatus === "success" && (
+                <div className="mb-6 p-4 bg-green-500/20 border border-green-500/50 rounded-lg">
+                  <div className="flex items-center space-x-2">
+                    <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-green-400 font-medium">Message sent successfully! I'll get back to you soon.</span>
+                  </div>
+                </div>
+              )}
+
+              {/* Error Message */}
+              {submitStatus === "error" && (
+                <div className="mb-6 p-4 bg-red-500/20 border border-red-500/50 rounded-lg">
+                  <div className="flex items-center space-x-2">
+                    <svg className="w-5 h-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-red-400 font-medium">Failed to send message. Please try again or email me directly.</span>
+                  </div>
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="firstName" className="block text-sm font-medium text-gray-300 mb-2">
-                      First Name
+                      First Name *
                     </label>
                     <input
                       type="text"
                       id="firstName"
                       name="firstName"
+                      value={formData.firstName}
+                      onChange={handleInputChange}
+                      required
                       className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
                       placeholder="Your first name"
                     />
                   </div>
                   <div>
                     <label htmlFor="lastName" className="block text-sm font-medium text-gray-300 mb-2">
-                      Last Name
+                      Last Name *
                     </label>
                     <input
                       type="text"
                       id="lastName"
                       name="lastName"
+                      value={formData.lastName}
+                      onChange={handleInputChange}
+                      required
                       className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
                       placeholder="Your last name"
                     />
@@ -65,12 +175,15 @@ export default function Contact() {
                 
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                    Email Address
+                    Email Address *
                   </label>
                   <input
                     type="email"
                     id="email"
                     name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
                     className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
                     placeholder="your.email@example.com"
                   />
@@ -78,12 +191,15 @@ export default function Contact() {
                 
                 <div>
                   <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
-                    Subject
+                    Subject *
                   </label>
                   <input
                     type="text"
                     id="subject"
                     name="subject"
+                    value={formData.subject}
+                    onChange={handleInputChange}
+                    required
                     className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
                     placeholder="What's this about?"
                   />
@@ -91,12 +207,15 @@ export default function Contact() {
                 
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                    Message
+                    Message *
                   </label>
                   <textarea
                     id="message"
                     name="message"
                     rows={6}
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    required
                     className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 resize-none"
                     placeholder="Tell me about your project, idea, or just say hello!"
                   ></textarea>
@@ -104,9 +223,20 @@ export default function Contact() {
                 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+                  disabled={isSubmitting}
+                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:from-gray-600 disabled:to-gray-700 disabled:cursor-not-allowed text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg disabled:hover:scale-100"
                 >
-                  Send Message
+                  {isSubmitting ? (
+                    <div className="flex items-center justify-center space-x-2">
+                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      <span>Sending...</span>
+                    </div>
+                  ) : (
+                    "Send Message"
+                  )}
                 </button>
               </form>
             </div>
@@ -126,8 +256,8 @@ export default function Contact() {
                     </div>
                     <div>
                       <h3 className="text-white font-semibold">Email</h3>
-                      <a href="mailto:nkeithpaul@gmail.com" className="text-blue-400 hover:text-blue-300 transition-colors">
-                        nkeithpaul@gmail.com
+                      <a href="mailto:keithpaul.dev@gmail.com" className="text-blue-400 hover:text-blue-300 transition-colors">
+                      keithpaul.dev@gmail.com
                       </a>
                     </div>
                   </div>
