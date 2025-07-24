@@ -162,7 +162,7 @@ function Footer() {
                   <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                   <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                 </svg>
-                <span>keith.nkwanda@example.com</span>
+                <span>nkeithpaul@gmail.com</span>
               </div>
               <div className="flex items-center space-x-2 text-gray-400 text-sm">
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -187,7 +187,7 @@ function Footer() {
               </a>
               
               <a 
-                href="https://linkedin.com/in/keith-paul-nkwanda" 
+                href="https://www.linkedin.com/in/keith-paul-nkwanda-49709b356/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-blue-400 transition-colors duration-300 hover:scale-110 transform"
@@ -199,7 +199,7 @@ function Footer() {
               </a>
               
               <a 
-                href="https://twitter.com/keithpaul98" 
+                href="https://x.com/Keith_Paul_Nkw" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-blue-400 transition-colors duration-300 hover:scale-110 transform"
@@ -243,7 +243,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="bg-gray-900 text-white">
+      <body className="bg-gray-900 text-white min-h-screen flex flex-col">
         <Navigation />
         <main className="flex-grow">
           {children}
@@ -257,11 +257,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return (
-    <Layout>
-      <Outlet />
-    </Layout>
-  );
+  return <Outlet />;
 }
 
 export function ErrorBoundary() {
