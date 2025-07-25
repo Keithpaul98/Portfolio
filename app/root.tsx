@@ -58,46 +58,64 @@ function Navigation() {
           </Link>
           
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8 z-10">
+          <div className="hidden md:flex items-center space-x-10 z-10">
             <Link 
               to="/" 
-              className={`${isActive('/')} transition-colors duration-300 hover:scale-105 transform cursor-pointer relative z-20`}
+              className={`${isActive('/')} flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105 hover:bg-white/10 transform cursor-pointer relative z-20 group`}
             >
-              Home
+              <svg className="w-5 h-5 transition-colors duration-300 group-hover:text-blue-300" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              </svg>
+              <span className="font-medium">Home</span>
             </Link>
             <Link 
               to="/projects" 
-              className={`${isActive('/projects')} transition-colors duration-300 hover:scale-105 transform cursor-pointer relative z-20`}
+              className={`${isActive('/projects')} flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105 hover:bg-white/10 transform cursor-pointer relative z-20 group`}
             >
-              Projects
+              <svg className="w-5 h-5 transition-colors duration-300 group-hover:text-blue-300" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+              </svg>
+              <span className="font-medium">Projects</span>
             </Link>
             <Link 
               to="/contact" 
-              className={`${isActive('/contact')} transition-colors duration-300 hover:scale-105 transform cursor-pointer relative z-20`}
+              className={`${isActive('/contact')} flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105 hover:bg-white/10 transform cursor-pointer relative z-20 group`}
             >
-              Contact
+              <svg className="w-5 h-5 transition-colors duration-300 group-hover:text-blue-300" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+              </svg>
+              <span className="font-medium">Contact</span>
             </Link>
           </div>
           
-          {/* Mobile Navigation */}
-          <div className="md:hidden flex flex-col space-y-2 z-10">
+          {/* Mobile Navigation - Horizontal Layout */}
+          <div className="md:hidden flex items-center space-x-6 z-10">
             <Link 
               to="/" 
-              className={`${isActive('/')} transition-colors duration-300 text-sm cursor-pointer`}
+              className={`${isActive('/')} flex flex-col items-center space-y-1 px-3 py-2 rounded-lg transition-all duration-300 hover:bg-white/10 cursor-pointer group`}
             >
-              Home
+              <svg className="w-4 h-4 transition-colors duration-300 group-hover:text-blue-300" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              </svg>
+              <span className="text-xs font-medium">Home</span>
             </Link>
             <Link 
               to="/projects" 
-              className={`${isActive('/projects')} transition-colors duration-300 text-sm cursor-pointer`}
+              className={`${isActive('/projects')} flex flex-col items-center space-y-1 px-3 py-2 rounded-lg transition-all duration-300 hover:bg-white/10 cursor-pointer group`}
             >
-              Projects
+              <svg className="w-4 h-4 transition-colors duration-300 group-hover:text-blue-300" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+              </svg>
+              <span className="text-xs font-medium">Projects</span>
             </Link>
             <Link 
               to="/contact" 
-              className={`${isActive('/contact')} transition-colors duration-300 text-sm cursor-pointer`}
+              className={`${isActive('/contact')} flex flex-col items-center space-y-1 px-3 py-2 rounded-lg transition-all duration-300 hover:bg-white/10 cursor-pointer group`}
             >
-              Contact
+              <svg className="w-4 h-4 transition-colors duration-300 group-hover:text-blue-300" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+              </svg>
+              <span className="text-xs font-medium">Contact</span>
             </Link>
           </div>
         </div>
