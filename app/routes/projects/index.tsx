@@ -45,7 +45,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                         <div className="flex items-center justify-center gap-4 text-white text-sm">
                             <div className="flex items-center gap-1">
                                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                    <path d="M12 2C6.48 2 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
                                 </svg>
                                 <span>{project.technologies.length} Tech</span>
                             </div>
@@ -195,15 +195,71 @@ export default function ProjectsIndex() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900/20 to-purple-900/20">
             <div className="container mx-auto px-4 pt-24 pb-12">
-                {/* Header Section */}
-                <div className="text-center mb-12">
-                    <h1 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent animate-fade-in">
-                        My Projects
-                    </h1>
-                    <p className="text-xl text-gray-300 max-w-2xl mx-auto animate-fade-in-up">
-                        A collection of software solutions I've built, showcasing my expertise in full-stack development, AI integration, and modern web technologies.
-                    </p>
-                    <div className="h-1 w-24 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto mt-6 rounded-full"></div>
+                {/* Breadcrumb Navigation */}
+                <div className="mb-8 animate-fade-in">
+                    <nav className="flex items-center space-x-2 text-sm text-gray-400">
+                        <Link to="/" className="hover:text-blue-400 transition-colors duration-300 flex items-center gap-1">
+                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                            </svg>
+                            Home
+                        </Link>
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                        </svg>
+                        <span className="text-blue-400 font-medium">Projects</span>
+                    </nav>
+                </div>
+
+                {/* Enhanced Header Section */}
+                <div className="text-center mb-16 relative">
+                    {/* Background decoration */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-5">
+                        <svg className="w-96 h-96" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                        </svg>
+                    </div>
+                    
+                    <div className="relative z-10">
+                        <div className="inline-flex items-center gap-3 mb-6 animate-fade-in">
+                            <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg">
+                                <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                                </svg>
+                            </div>
+                            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+                                My Projects
+                            </h1>
+                        </div>
+                        
+                        <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-8 animate-fade-in-up leading-relaxed">
+                            A collection of <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 font-semibold">innovative software solutions</span> I've built, showcasing expertise in full-stack development, AI integration, and modern web technologies.
+                        </p>
+                        
+                        {/* Enhanced gradient line with animation */}
+                        <div className="relative mx-auto mt-8 w-32">
+                            <div className="h-1 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 rounded-full animate-pulse"></div>
+                            <div className="absolute inset-0 h-1 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 rounded-full blur-sm opacity-50"></div>
+                        </div>
+                        
+                        {/* Project stats */}
+                        <div className="flex items-center justify-center gap-8 mt-8 animate-fade-in-up">
+                            <div className="text-center">
+                                <div className="text-2xl font-bold text-blue-400">{projects.length}</div>
+                                <div className="text-sm text-gray-400">Projects</div>
+                            </div>
+                            <div className="w-px h-8 bg-gray-600"></div>
+                            <div className="text-center">
+                                <div className="text-2xl font-bold text-purple-400">{getAllTechnologies().length}</div>
+                                <div className="text-sm text-gray-400">Technologies</div>
+                            </div>
+                            <div className="w-px h-8 bg-gray-600"></div>
+                            <div className="text-center">
+                                <div className="text-2xl font-bold text-cyan-400">{projects.filter(p => p.liveUrl).length}</div>
+                                <div className="text-sm text-gray-400">Live Projects</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Search and Filter Section */}
@@ -224,7 +280,7 @@ export default function ProjectsIndex() {
                         
                         <div className="relative">
                             <svg className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/>
+                                <path d="M10 18h4v-2h-4v2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
                             </svg>
                             <select
                                 value={selectedTech}
