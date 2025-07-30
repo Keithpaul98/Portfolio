@@ -229,19 +229,21 @@ export default function ProjectsIndex() {
                         </div>
                         
                         {/* Project stats */}
-                        <div className="flex items-center justify-center gap-8 mt-8 animate-fade-in-up">
+                        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 mt-8 animate-fade-in-up">
                             <div className="text-center">
-                                <div className="text-2xl font-bold text-blue-400">{projects.length}</div>
+                                <div className="text-2xl md:text-3xl font-bold text-blue-400">{projects.length}</div>
                                 <div className="text-sm text-gray-400">Projects</div>
                             </div>
-                            <div className="w-px h-8 bg-gray-600"></div>
+                            <div className="hidden sm:block w-px h-8 bg-gray-600"></div>
+                            <div className="block sm:hidden w-8 h-px bg-gray-600"></div>
                             <div className="text-center">
-                                <div className="text-2xl font-bold text-purple-400">{getAllTechnologies().length}</div>
+                                <div className="text-2xl md:text-3xl font-bold text-purple-400">{getAllTechnologies().length}</div>
                                 <div className="text-sm text-gray-400">Technologies</div>
                             </div>
-                            <div className="w-px h-8 bg-gray-600"></div>
+                            <div className="hidden sm:block w-px h-8 bg-gray-600"></div>
+                            <div className="block sm:hidden w-8 h-px bg-gray-600"></div>
                             <div className="text-center">
-                                <div className="text-2xl font-bold text-cyan-400">{projects.filter(p => p.liveUrl).length}</div>
+                                <div className="text-2xl md:text-3xl font-bold text-cyan-400">{projects.filter(p => p.liveUrl).length}</div>
                                 <div className="text-sm text-gray-400">Live Projects</div>
                             </div>
                         </div>
