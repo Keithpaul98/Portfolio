@@ -26,155 +26,6 @@ const LoadingContext = createContext({
 
 export const useLoading = () => useContext(LoadingContext);
 
-// Theme Context
-type Theme = 'dark' | 'light' | 'system';
-
-interface ThemeContextType {
-  theme: Theme;
-  setTheme: (theme: Theme) => void;
-  resolvedTheme: 'dark' | 'light';
-}
-
-const ThemeContext = createContext<ThemeContextType>({
-  theme: 'system',
-  setTheme: () => {},
-  resolvedTheme: 'dark',
-});
-
-export const useTheme = () => useContext(ThemeContext);
-
-// Theme Provider Component
-function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('system');
-  const [resolvedTheme, setResolvedTheme] = useState<'dark' | 'light'>('dark');
-
-  useEffect(() => {
-    // Get saved theme or default to system
-    const savedTheme = (localStorage.getItem('theme') as Theme) || 'system';
-    setTheme(savedTheme);
-  }, []);
-
-  useEffect(() => {
-    const updateResolvedTheme = () => {
-      let resolved: 'dark' | 'light';
-      
-      if (theme === 'system') {
-        resolved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      } else {
-        resolved = theme;
-      }
-      
-      setResolvedTheme(resolved);
-      
-      // Update document class and localStorage
-      document.documentElement.classList.remove('dark', 'light');
-      document.documentElement.classList.add(resolved);
-      localStorage.setItem('theme', theme);
-    };
-
-    updateResolvedTheme();
-
-    // Listen for system theme changes
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = () => {
-      if (theme === 'system') {
-        updateResolvedTheme();
-      }
-    };
-
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, [theme]);
-
-  return (
-    <ThemeContext.Provider value={{ theme, setTheme, resolvedTheme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
-}
-
-// Theme Toggle Button Component
-function ThemeToggle() {
-  const { theme, setTheme, resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return (
-      <div className="w-10 h-10 rounded-lg bg-gray-800/50 animate-pulse"></div>
-    );
-  }
-
-  const toggleTheme = () => {
-    if (theme === 'dark') {
-      setTheme('light');
-    } else if (theme === 'light') {
-      setTheme('system');
-    } else {
-      setTheme('dark');
-    }
-  };
-
-  const getIcon = () => {
-    if (theme === 'system') {
-      return (
-        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 2L13.09 8.26L22 9L13.09 9.74L12 16L10.91 9.74L2 9L10.91 8.26L12 2Z" />
-        </svg>
-      );
-    }
-    
-    if (resolvedTheme === 'dark') {
-      return (
-        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z"/>
-        </svg>
-      );
-    }
-    
-    return (
-      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M12,18.5A6.5,6.5,0,1,1,18.5,12,6.51,6.51,0,0,1,12,18.5ZM12,7A5,5,0,1,0,17,12,5,5,0,0,0,12,7Z"/>
-        <path d="M12,1a1,1,0,0,0-1,1V4a1,1,0,0,0,2,0V2A1,1,0,0,0,12,1Z"/>
-        <path d="M12,20a1,1,0,0,0-1,1v2a1,1,0,0,0,2,0V21A1,1,0,0,0,12,20Z"/>
-        <path d="M4.22,4.22a1,1,0,0,0-1.41,1.41L4.22,7.05A1,1,0,1,0,5.64,5.64Z"/>
-        <path d="M18.36,18.36a1,1,0,0,0-1.41,1.41l1.41,1.42a1,1,0,0,0,1.41-1.41Z"/>
-        <path d="M1,13H4a1,1,0,0,0,0-2H1a1,1,0,0,0,0,2Z"/>
-        <path d="M20,13h3a1,1,0,0,0,0-2H20a1,1,0,0,0,0,2Z"/>
-        <path d="M4.22,19.78a1,1,0,0,0,1.41,1.41L7.05,19.78A1,1,0,1,0,5.64,18.36Z"/>
-        <path d="M18.36,5.64a1,1,0,0,0,1.41-1.41L18.36,2.81A1,1,0,1,0,16.95,4.22Z"/>
-      </svg>
-    );
-  };
-
-  const getTooltip = () => {
-    if (theme === 'system') return 'System theme';
-    if (theme === 'dark') return 'Dark mode';
-    return 'Light mode';
-  };
-
-  return (
-    <button
-      onClick={toggleTheme}
-      className="relative w-10 h-10 rounded-lg bg-gray-800/50 dark:bg-gray-700/50 hover:bg-gray-700/50 dark:hover:bg-gray-600/50 border border-gray-700/50 dark:border-gray-600/50 hover:border-blue-400/50 transition-all duration-300 flex items-center justify-center group"
-      aria-label={getTooltip()}
-      title={getTooltip()}
-    >
-      <div className="text-gray-300 dark:text-gray-200 group-hover:text-blue-300 transition-colors duration-300">
-        {getIcon()}
-      </div>
-      
-      {/* Tooltip */}
-      <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gray-800 dark:bg-gray-700 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
-        {getTooltip()}
-      </div>
-    </button>
-  );
-}
-
 // Loading Spinner Component
 function LoadingSpinner({ size = "md", className = "" }: { size?: "sm" | "md" | "lg", className?: string }) {
   const sizeClasses = {
@@ -228,33 +79,12 @@ function PageTransition({ children }: { children: React.ReactNode }) {
   );
 }
 
-export const links: RouteType.LinksFunction = () => [
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
-  {
-    rel: "preconnect",
-    href: "https://fonts.gstatic.com",
-    crossOrigin: "anonymous",
-  },
-  {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
-  },
-  // Favicon with strong cache busting
-  { rel: "icon", type: "image/svg+xml", href: "/favicon.svg?t=" + new Date().getTime() },
-  { rel: "shortcut icon", href: "/favicon.svg?t=" + new Date().getTime() },
-  { rel: "apple-touch-icon", sizes: "180x180", href: "/favicon.svg?t=" + new Date().getTime() },
-  // Additional favicon formats for better browser support
-  { rel: "icon", sizes: "16x16", type: "image/x-icon", href: "/favicon.ico?v=" + Date.now() },
-  { rel: "icon", sizes: "32x32", type: "image/x-icon", href: "/favicon.ico?v=" + Date.now() },
-];
-
 // Navigation component
 function Navigation() {
   const location = useLocation();
   const navigation = useNavigation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { setIsLoading } = useLoading();
-  const { theme, setTheme } = useTheme();
   
   // Handle navigation loading states
   useEffect(() => {
@@ -327,7 +157,6 @@ function Navigation() {
                 </svg>
                 <span className="font-medium text-sm lg:text-base">Contact</span>
               </Link>
-              <ThemeToggle />
             </div>
             
             {/* Mobile Hamburger Button */}
@@ -383,7 +212,7 @@ function Navigation() {
               <Link 
                 to="/" 
                 onClick={handleNavClick}
-                className={`${isActive('/')} ${isActiveBackground('/')} flex items-center space-x-4 px-4 py-4 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-500/10 hover:via-purple-500/10 hover:to-cyan-500/10 hover:border-blue-400/20 border border-transparent group`}
+                className="flex items-center space-x-4 px-4 py-4 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-500/10 hover:via-purple-500/10 hover:to-cyan-500/10 hover:border-blue-400/20 border border-transparent group"
               >
                 <div className="w-10 h-10 rounded-lg bg-gray-800/50 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors duration-300">
                   <svg className="w-5 h-5 transition-all duration-300 group-hover:text-blue-300" fill="currentColor" viewBox="0 0 24 24">
@@ -399,7 +228,7 @@ function Navigation() {
               <Link 
                 to="/projects" 
                 onClick={handleNavClick}
-                className={`${isActive('/projects')} ${isActiveBackground('/projects')} flex items-center space-x-4 px-4 py-4 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-500/10 hover:via-purple-500/10 hover:to-cyan-500/10 hover:border-blue-400/20 border border-transparent group`}
+                className="flex items-center space-x-4 px-4 py-4 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-500/10 hover:via-purple-500/10 hover:to-cyan-500/10 hover:border-blue-400/20 border border-transparent group"
               >
                 <div className="w-10 h-10 rounded-lg bg-gray-800/50 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors duration-300">
                   <svg className="w-5 h-5 transition-all duration-300 group-hover:text-blue-300" fill="currentColor" viewBox="0 0 24 24">
@@ -415,7 +244,7 @@ function Navigation() {
               <Link 
                 to="/contact" 
                 onClick={handleNavClick}
-                className={`${isActive('/contact')} ${isActiveBackground('/contact')} flex items-center space-x-4 px-4 py-4 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-500/10 hover:via-purple-500/10 hover:to-cyan-500/10 hover:border-blue-400/20 border border-transparent group`}
+                className="flex items-center space-x-4 px-4 py-4 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-500/10 hover:via-purple-500/10 hover:to-cyan-500/10 hover:border-blue-400/20 border border-transparent group"
               >
                 <div className="w-10 h-10 rounded-lg bg-gray-800/50 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors duration-300">
                   <svg className="w-5 h-5 transition-all duration-300 group-hover:text-blue-300" fill="currentColor" viewBox="0 0 24 24">
@@ -431,7 +260,7 @@ function Navigation() {
           </div>
 
           {/* Mobile Menu Footer */}
-          <div className="p-6 border-t border-gray-800/50">
+          <div className="p-6 border-t border-gray-800">
             <div className="text-center">
               <p className="text-sm text-gray-400 mb-2">Keith Paul Nkwanda</p>
               <p className="text-xs text-gray-500">Full-Stack Developer</p>
@@ -442,6 +271,26 @@ function Navigation() {
     </>
   );
 }
+
+export const links: RouteType.LinksFunction = () => [
+  { rel: "preconnect", href: "https://fonts.googleapis.com" },
+  {
+    rel: "preconnect",
+    href: "https://fonts.gstatic.com",
+    crossOrigin: "anonymous",
+  },
+  {
+    rel: "stylesheet",
+    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+  },
+  // Favicon with strong cache busting
+  { rel: "icon", type: "image/svg+xml", href: "/favicon.svg?t=" + new Date().getTime() },
+  { rel: "shortcut icon", href: "/favicon.svg?t=" + new Date().getTime() },
+  { rel: "apple-touch-icon", sizes: "180x180", href: "/favicon.svg?t=" + new Date().getTime() },
+  // Additional favicon formats for better browser support
+  { rel: "icon", sizes: "16x16", type: "image/x-icon", href: "/favicon.ico?v=" + Date.now() },
+  { rel: "icon", sizes: "32x32", type: "image/x-icon", href: "/favicon.ico?v=" + Date.now() },
+];
 
 // Scroll-to-Top Button Component
 function ScrollToTopButton() {
@@ -658,19 +507,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className="bg-gray-900 text-white min-h-screen flex flex-col">
-        <ThemeProvider>
-          <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
-            <Navigation />
-            <main className="flex-grow pt-16">
-              <PageTransition>
-                {children}
-              </PageTransition>
-            </main>
-            <Footer />
-            {isLoading && <PageLoadingOverlay />}
-            <ScrollToTopButton />
-          </LoadingContext.Provider>
-        </ThemeProvider>
+        <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
+          <Navigation />
+          <main className="flex-grow pt-16">
+            <PageTransition>
+              {children}
+            </PageTransition>
+          </main>
+          <Footer />
+          {isLoading && <PageLoadingOverlay />}
+          <ScrollToTopButton />
+        </LoadingContext.Provider>
         <ScrollRestoration />
         <Scripts />
       </body>

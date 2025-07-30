@@ -4,27 +4,8 @@ export default {
   content: [
     "./app/**/*.{js,jsx,ts,tsx}",
   ],
-  darkMode: 'class',
   theme: {
     extend: {
-      colors: {
-        // Custom theme colors for light mode
-        light: {
-          bg: '#ffffff',
-          'bg-secondary': '#f8fafc',
-          text: '#1f2937',
-          'text-secondary': '#6b7280',
-          border: '#e5e7eb',
-        },
-        // Enhanced dark mode colors
-        dark: {
-          bg: '#111827',
-          'bg-secondary': '#1f2937',
-          text: '#f9fafb',
-          'text-secondary': '#d1d5db',
-          border: '#374151',
-        }
-      },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out',
         'fade-in-up': 'fadeInUp 0.5s ease-out',
