@@ -51,9 +51,9 @@ function Navigation() {
           {/* Logo */}
           <Link to="/" className="flex items-center hover:opacity-80 transition-opacity duration-300 z-10">
             <img 
-              src="/images/kpn-logo-compact.svg" 
-              alt="Keith Paul Nkwanda - KPN Logo" 
-              className="h-8 w-auto"
+              src="/images/logo.png" 
+              alt="Keith Paul Nkwanda - Professional Logo" 
+              className="h-10 w-auto filter brightness-110 hover:brightness-125 transition-all duration-300"
             />
           </Link>
           
@@ -134,9 +134,9 @@ function Footer() {
           <div className="space-y-4">
             <div className="flex items-center space-x-3">
               <img 
-                src="/images/kpn-logo-compact.svg" 
-                alt="Keith Paul Nkwanda - KPN Logo" 
-                className="h-8 w-auto"
+                src="/images/logo.png" 
+                alt="Keith Paul Nkwanda - Professional Logo" 
+                className="h-12 w-auto filter brightness-110"
               />
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">
