@@ -7,6 +7,7 @@ import {
   Link,
   useLocation,
   useRouteError,
+  useNavigation,
 } from "react-router";
 
 import type { Route as RouteType } from "./+types/root";
@@ -15,7 +16,68 @@ import "./styles/animations.css";
 import Home from "./routes/home";
 import Projects from "./routes/projects";
 import Contact from "./routes/contact";
-import { useState } from 'react';
+import { useState, useEffect, createContext, useContext } from 'react';
+
+// Loading Context
+const LoadingContext = createContext({
+  isLoading: false,
+  setIsLoading: (loading: boolean) => {},
+});
+
+export const useLoading = () => useContext(LoadingContext);
+
+// Loading Spinner Component
+function LoadingSpinner({ size = "md", className = "" }: { size?: "sm" | "md" | "lg", className?: string }) {
+  const sizeClasses = {
+    sm: "w-4 h-4",
+    md: "w-8 h-8", 
+    lg: "w-12 h-12"
+  };
+
+  return (
+    <div className={`${sizeClasses[size]} ${className}`}>
+      <div className="relative w-full h-full">
+        <div className="absolute inset-0 border-2 border-gray-600 rounded-full"></div>
+        <div className="absolute inset-0 border-2 border-transparent border-t-blue-400 border-r-purple-400 rounded-full animate-spin"></div>
+      </div>
+    </div>
+  );
+}
+
+// Page Loading Overlay
+function PageLoadingOverlay() {
+  return (
+    <div className="fixed inset-0 bg-gray-900/80 backdrop-blur-sm z-[100] flex items-center justify-center">
+      <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-8 shadow-2xl">
+        <div className="flex flex-col items-center space-y-4">
+          <LoadingSpinner size="lg" />
+          <div className="text-center">
+            <h3 className="text-white font-semibold text-lg mb-2">Loading</h3>
+            <p className="text-gray-400 text-sm">Please wait while we prepare your content...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Page Transition Wrapper
+function PageTransition({ children }: { children: React.ReactNode }) {
+  const [isVisible, setIsVisible] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    setIsVisible(false);
+    const timer = setTimeout(() => setIsVisible(true), 50);
+    return () => clearTimeout(timer);
+  }, [location.pathname]);
+
+  return (
+    <div className={`transition-all duration-500 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+      {children}
+    </div>
+  );
+}
 
 export const links: RouteType.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -40,8 +102,15 @@ export const links: RouteType.LinksFunction = () => [
 // Navigation component
 function Navigation() {
   const location = useLocation();
+  const navigation = useNavigation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { setIsLoading } = useLoading();
   
+  // Handle navigation loading states
+  useEffect(() => {
+    setIsLoading(navigation.state === "loading");
+  }, [navigation.state, setIsLoading]);
+
   const isActive = (path: string) => {
     if (location.pathname === path) {
       return "text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400";
@@ -57,13 +126,18 @@ function Navigation() {
     setIsMobileMenuOpen(false);
   };
 
+  const handleNavClick = () => {
+    setIsLoading(true);
+    closeMobileMenu();
+  };
+
   return (
     <>
       <nav className="bg-gray-900/95 backdrop-blur-md fixed w-full z-50 shadow-xl border-b border-gray-800/50">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="flex justify-between items-center py-3 sm:py-4">
             {/* Enhanced Logo */}
-            <Link to="/" className="flex items-center hover:opacity-80 transition-all duration-300 z-10 group">
+            <Link to="/" onClick={handleNavClick} className="flex items-center hover:opacity-80 transition-all duration-300 z-10 group">
               <img 
                 src="/images/logo.png" 
                 alt="Keith Paul Nkwanda - Professional Logo" 
@@ -75,6 +149,7 @@ function Navigation() {
             <div className="hidden md:flex items-center space-x-2 lg:space-x-4 z-10">
               <Link 
                 to="/" 
+                onClick={handleNavClick}
                 className={`${isActive('/')} ${isActiveBackground('/')} flex items-center space-x-2 px-4 lg:px-6 py-2.5 rounded-xl transition-all duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-blue-500/10 hover:via-purple-500/10 hover:to-cyan-500/10 hover:border-blue-400/20 border border-transparent transform cursor-pointer relative z-20 group`}
               >
                 <svg className="w-5 h-5 transition-all duration-300 group-hover:text-blue-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
@@ -84,6 +159,7 @@ function Navigation() {
               </Link>
               <Link 
                 to="/projects" 
+                onClick={handleNavClick}
                 className={`${isActive('/projects')} ${isActiveBackground('/projects')} flex items-center space-x-2 px-4 lg:px-6 py-2.5 rounded-xl transition-all duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-blue-500/10 hover:via-purple-500/10 hover:to-cyan-500/10 hover:border-blue-400/20 border border-transparent transform cursor-pointer relative z-20 group`}
               >
                 <svg className="w-5 h-5 transition-all duration-300 group-hover:text-blue-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
@@ -93,6 +169,7 @@ function Navigation() {
               </Link>
               <Link 
                 to="/contact" 
+                onClick={handleNavClick}
                 className={`${isActive('/contact')} ${isActiveBackground('/contact')} flex items-center space-x-2 px-4 lg:px-6 py-2.5 rounded-xl transition-all duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-blue-500/10 hover:via-purple-500/10 hover:to-cyan-500/10 hover:border-blue-400/20 border border-transparent transform cursor-pointer relative z-20 group`}
               >
                 <svg className="w-5 h-5 transition-all duration-300 group-hover:text-blue-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
@@ -137,7 +214,6 @@ function Navigation() {
                 alt="Keith Paul Nkwanda" 
                 className="h-8 w-auto filter brightness-110"
               />
-              <span className="text-white font-semibold text-lg">Menu</span>
             </div>
             <button
               onClick={closeMobileMenu}
@@ -155,7 +231,7 @@ function Navigation() {
             <div className="space-y-2 px-6">
               <Link 
                 to="/" 
-                onClick={closeMobileMenu}
+                onClick={handleNavClick}
                 className={`${isActive('/')} ${isActiveBackground('/')} flex items-center space-x-4 px-4 py-4 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-500/10 hover:via-purple-500/10 hover:to-cyan-500/10 hover:border-blue-400/20 border border-transparent group`}
               >
                 <div className="w-10 h-10 rounded-lg bg-gray-800/50 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors duration-300">
@@ -171,7 +247,7 @@ function Navigation() {
 
               <Link 
                 to="/projects" 
-                onClick={closeMobileMenu}
+                onClick={handleNavClick}
                 className={`${isActive('/projects')} ${isActiveBackground('/projects')} flex items-center space-x-4 px-4 py-4 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-500/10 hover:via-purple-500/10 hover:to-cyan-500/10 hover:border-blue-400/20 border border-transparent group`}
               >
                 <div className="w-10 h-10 rounded-lg bg-gray-800/50 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors duration-300">
@@ -187,7 +263,7 @@ function Navigation() {
 
               <Link 
                 to="/contact" 
-                onClick={closeMobileMenu}
+                onClick={handleNavClick}
                 className={`${isActive('/contact')} ${isActiveBackground('/contact')} flex items-center space-x-4 px-4 py-4 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-500/10 hover:via-purple-500/10 hover:to-cyan-500/10 hover:border-blue-400/20 border border-transparent group`}
               >
                 <div className="w-10 h-10 rounded-lg bg-gray-800/50 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors duration-300">
@@ -213,6 +289,78 @@ function Navigation() {
         </div>
       </div>
     </>
+  );
+}
+
+// Scroll-to-Top Button Component
+function ScrollToTopButton() {
+  const [isVisible, setIsVisible] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const toggleVisibility = () => {
+      const scrolled = document.documentElement.scrollTop;
+      const maxHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = (scrolled / maxHeight) * 100;
+      
+      setScrollProgress(progress);
+      setIsVisible(scrolled > 300);
+    };
+
+    window.addEventListener('scroll', toggleVisibility);
+    return () => window.removeEventListener('scroll', toggleVisibility);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  if (!isVisible) return null;
+
+  return (
+    <button
+      onClick={scrollToTop}
+      className="fixed bottom-6 right-6 z-40 w-12 h-12 bg-gradient-to-r from-blue-600/90 via-purple-600/90 to-cyan-600/90 backdrop-blur-sm border border-blue-400/30 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 active:scale-95 group"
+      aria-label="Scroll to top"
+    >
+      {/* Progress Ring */}
+      <svg className="absolute inset-0 w-12 h-12 transform -rotate-90" viewBox="0 0 48 48">
+        <circle
+          cx="24"
+          cy="24"
+          r="20"
+          fill="none"
+          stroke="rgba(255,255,255,0.2)"
+          strokeWidth="2"
+        />
+        <circle
+          cx="24"
+          cy="24"
+          r="20"
+          fill="none"
+          stroke="rgba(255,255,255,0.8)"
+          strokeWidth="2"
+          strokeDasharray={`${2 * Math.PI * 20}`}
+          strokeDashoffset={`${2 * Math.PI * 20 * (1 - scrollProgress / 100)}`}
+          className="transition-all duration-300"
+        />
+      </svg>
+      
+      {/* Arrow Icon */}
+      <div className="relative z-10 flex items-center justify-center w-full h-full">
+        <svg 
+          className="w-5 h-5 text-white transition-transform duration-300 group-hover:-translate-y-0.5" 
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+      </div>
+    </button>
   );
 }
 
@@ -346,6 +494,8 @@ function Footer() {
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const [isLoading, setIsLoading] = useState(false);
+
   return (
     <html lang="en">
       <head>
@@ -357,11 +507,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className="bg-gray-900 text-white min-h-screen flex flex-col">
-        <Navigation />
-        <main className="flex-grow">
-          {children}
-        </main>
-        <Footer />
+        <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
+          <Navigation />
+          <main className="flex-grow pt-16">
+            <PageTransition>
+              {children}
+            </PageTransition>
+          </main>
+          <Footer />
+          {isLoading && <PageLoadingOverlay />}
+          <ScrollToTopButton />
+        </LoadingContext.Provider>
         <ScrollRestoration />
         <Scripts />
       </body>
