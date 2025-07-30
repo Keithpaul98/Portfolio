@@ -15,6 +15,7 @@ import "./styles/animations.css";
 import Home from "./routes/home";
 import Projects from "./routes/projects";
 import Contact from "./routes/contact";
+import { useState } from 'react';
 
 export const links: RouteType.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -39,88 +40,179 @@ export const links: RouteType.LinksFunction = () => [
 // Navigation component
 function Navigation() {
   const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   const isActive = (path: string) => {
-    return location.pathname === path ? "text-blue-400" : "text-gray-300 hover:text-white";
+    if (location.pathname === path) {
+      return "text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400";
+    }
+    return "text-gray-300 hover:text-white";
+  };
+
+  const isActiveBackground = (path: string) => {
+    return location.pathname === path ? "bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-cyan-500/20 border border-blue-400/30" : "";
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
   };
 
   return (
-    <nav className="bg-gray-900 fixed w-full z-50 shadow-md">
-      <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center py-4">
-          {/* Logo */}
-          <Link to="/" className="flex items-center hover:opacity-80 transition-opacity duration-300 z-10">
-            <img 
-              src="/images/logo.png" 
-              alt="Keith Paul Nkwanda - Professional Logo" 
-              className="h-10 w-auto filter brightness-110 hover:brightness-125 transition-all duration-300"
-            />
-          </Link>
-          
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-10 z-10">
-            <Link 
-              to="/" 
-              className={`${isActive('/')} flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105 hover:bg-white/10 transform cursor-pointer relative z-20 group`}
-            >
-              <svg className="w-5 h-5 transition-colors duration-300 group-hover:text-blue-300" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-              </svg>
-              <span className="font-medium">Home</span>
+    <>
+      <nav className="bg-gray-900/95 backdrop-blur-md fixed w-full z-50 shadow-xl border-b border-gray-800/50">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex justify-between items-center py-3 sm:py-4">
+            {/* Enhanced Logo */}
+            <Link to="/" className="flex items-center hover:opacity-80 transition-all duration-300 z-10 group">
+              <img 
+                src="/images/logo.png" 
+                alt="Keith Paul Nkwanda - Professional Logo" 
+                className="h-8 sm:h-10 w-auto filter brightness-110 group-hover:brightness-125 group-hover:scale-105 transition-all duration-300"
+              />
             </Link>
-            <Link 
-              to="/projects" 
-              className={`${isActive('/projects')} flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105 hover:bg-white/10 transform cursor-pointer relative z-20 group`}
+            
+            {/* Enhanced Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-2 lg:space-x-4 z-10">
+              <Link 
+                to="/" 
+                className={`${isActive('/')} ${isActiveBackground('/')} flex items-center space-x-2 px-4 lg:px-6 py-2.5 rounded-xl transition-all duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-blue-500/10 hover:via-purple-500/10 hover:to-cyan-500/10 hover:border-blue-400/20 border border-transparent transform cursor-pointer relative z-20 group`}
+              >
+                <svg className="w-5 h-5 transition-all duration-300 group-hover:text-blue-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                </svg>
+                <span className="font-medium text-sm lg:text-base">Home</span>
+              </Link>
+              <Link 
+                to="/projects" 
+                className={`${isActive('/projects')} ${isActiveBackground('/projects')} flex items-center space-x-2 px-4 lg:px-6 py-2.5 rounded-xl transition-all duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-blue-500/10 hover:via-purple-500/10 hover:to-cyan-500/10 hover:border-blue-400/20 border border-transparent transform cursor-pointer relative z-20 group`}
+              >
+                <svg className="w-5 h-5 transition-all duration-300 group-hover:text-blue-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                </svg>
+                <span className="font-medium text-sm lg:text-base">Projects</span>
+              </Link>
+              <Link 
+                to="/contact" 
+                className={`${isActive('/contact')} ${isActiveBackground('/contact')} flex items-center space-x-2 px-4 lg:px-6 py-2.5 rounded-xl transition-all duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-blue-500/10 hover:via-purple-500/10 hover:to-cyan-500/10 hover:border-blue-400/20 border border-transparent transform cursor-pointer relative z-20 group`}
+              >
+                <svg className="w-5 h-5 transition-all duration-300 group-hover:text-blue-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+                <span className="font-medium text-sm lg:text-base">Contact</span>
+              </Link>
+            </div>
+            
+            {/* Mobile Hamburger Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="md:hidden flex items-center justify-center w-10 h-10 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 transition-all duration-300 border border-gray-700/50 hover:border-blue-400/50 group"
+              aria-label="Toggle mobile menu"
             >
-              <svg className="w-5 h-5 transition-colors duration-300 group-hover:text-blue-300" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
-              </svg>
-              <span className="font-medium">Projects</span>
-            </Link>
-            <Link 
-              to="/contact" 
-              className={`${isActive('/contact')} flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105 hover:bg-white/10 transform cursor-pointer relative z-20 group`}
-            >
-              <svg className="w-5 h-5 transition-colors duration-300 group-hover:text-blue-300" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-              </svg>
-              <span className="font-medium">Contact</span>
-            </Link>
+              <div className="w-6 h-6 flex flex-col justify-center items-center">
+                <span className={`bg-gray-300 group-hover:bg-blue-300 block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm ${isMobileMenuOpen ? 'rotate-45 translate-y-1' : '-translate-y-0.5'}`}></span>
+                <span className={`bg-gray-300 group-hover:bg-blue-300 block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm my-0.5 ${isMobileMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
+                <span className={`bg-gray-300 group-hover:bg-blue-300 block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm ${isMobileMenuOpen ? '-rotate-45 -translate-y-1' : 'translate-y-0.5'}`}></span>
+              </div>
+            </button>
           </div>
-          
-          {/* Mobile Navigation - Horizontal Layout */}
-          <div className="md:hidden flex items-center space-x-6 z-10">
-            <Link 
-              to="/" 
-              className={`${isActive('/')} flex flex-col items-center space-y-1 px-3 py-2 rounded-lg transition-all duration-300 hover:bg-white/10 cursor-pointer group`}
+        </div>
+      </nav>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
+          onClick={closeMobileMenu}
+        />
+      )}
+
+      {/* Mobile Slide-out Menu */}
+      <div className={`fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-gray-900/95 backdrop-blur-xl border-l border-gray-800/50 shadow-2xl z-50 md:hidden transform transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+        <div className="flex flex-col h-full">
+          {/* Mobile Menu Header */}
+          <div className="flex items-center justify-between p-6 border-b border-gray-800/50">
+            <div className="flex items-center space-x-3">
+              <img 
+                src="/images/logo.png" 
+                alt="Keith Paul Nkwanda" 
+                className="h-8 w-auto filter brightness-110"
+              />
+              <span className="text-white font-semibold text-lg">Menu</span>
+            </div>
+            <button
+              onClick={closeMobileMenu}
+              className="w-8 h-8 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 flex items-center justify-center transition-colors duration-300"
+              aria-label="Close menu"
             >
-              <svg className="w-4 h-4 transition-colors duration-300 group-hover:text-blue-300" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              <svg className="w-5 h-5 text-gray-300 hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
-              <span className="text-xs font-medium">Home</span>
-            </Link>
-            <Link 
-              to="/projects" 
-              className={`${isActive('/projects')} flex flex-col items-center space-y-1 px-3 py-2 rounded-lg transition-all duration-300 hover:bg-white/10 cursor-pointer group`}
-            >
-              <svg className="w-4 h-4 transition-colors duration-300 group-hover:text-blue-300" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
-              </svg>
-              <span className="text-xs font-medium">Projects</span>
-            </Link>
-            <Link 
-              to="/contact" 
-              className={`${isActive('/contact')} flex flex-col items-center space-y-1 px-3 py-2 rounded-lg transition-all duration-300 hover:bg-white/10 cursor-pointer group`}
-            >
-              <svg className="w-4 h-4 transition-colors duration-300 group-hover:text-blue-300" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-              </svg>
-              <span className="text-xs font-medium">Contact</span>
-            </Link>
+            </button>
+          </div>
+
+          {/* Mobile Menu Items */}
+          <div className="flex-1 py-6">
+            <div className="space-y-2 px-6">
+              <Link 
+                to="/" 
+                onClick={closeMobileMenu}
+                className={`${isActive('/')} ${isActiveBackground('/')} flex items-center space-x-4 px-4 py-4 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-500/10 hover:via-purple-500/10 hover:to-cyan-500/10 hover:border-blue-400/20 border border-transparent group`}
+              >
+                <div className="w-10 h-10 rounded-lg bg-gray-800/50 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors duration-300">
+                  <svg className="w-5 h-5 transition-all duration-300 group-hover:text-blue-300" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <span className="font-medium text-base">Home</span>
+                  <p className="text-sm text-gray-400 mt-0.5">Welcome & Overview</p>
+                </div>
+              </Link>
+
+              <Link 
+                to="/projects" 
+                onClick={closeMobileMenu}
+                className={`${isActive('/projects')} ${isActiveBackground('/projects')} flex items-center space-x-4 px-4 py-4 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-500/10 hover:via-purple-500/10 hover:to-cyan-500/10 hover:border-blue-400/20 border border-transparent group`}
+              >
+                <div className="w-10 h-10 rounded-lg bg-gray-800/50 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors duration-300">
+                  <svg className="w-5 h-5 transition-all duration-300 group-hover:text-blue-300" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <span className="font-medium text-base">Projects</span>
+                  <p className="text-sm text-gray-400 mt-0.5">Portfolio & Work</p>
+                </div>
+              </Link>
+
+              <Link 
+                to="/contact" 
+                onClick={closeMobileMenu}
+                className={`${isActive('/contact')} ${isActiveBackground('/contact')} flex items-center space-x-4 px-4 py-4 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-500/10 hover:via-purple-500/10 hover:to-cyan-500/10 hover:border-blue-400/20 border border-transparent group`}
+              >
+                <div className="w-10 h-10 rounded-lg bg-gray-800/50 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors duration-300">
+                  <svg className="w-5 h-5 transition-all duration-300 group-hover:text-blue-300" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <span className="font-medium text-base">Contact</span>
+                  <p className="text-sm text-gray-400 mt-0.5">Get in Touch</p>
+                </div>
+              </Link>
+            </div>
+          </div>
+
+          {/* Mobile Menu Footer */}
+          <div className="p-6 border-t border-gray-800/50">
+            <div className="text-center">
+              <p className="text-sm text-gray-400 mb-2">Keith Paul Nkwanda</p>
+              <p className="text-xs text-gray-500">Full-Stack Developer</p>
+            </div>
           </div>
         </div>
       </div>
-    </nav>
+    </>
   );
 }
 
