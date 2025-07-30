@@ -5,27 +5,113 @@ import type { Project } from "../../data/projects";
 
 // Project card component
 function ProjectCard({ project, index }: { project: Project; index: number }) {
+    const isLive = !!project.liveUrl;
+    const isFeatured = project.id === "portfolio"; // Mark portfolio as featured
+    
     return (
         <div 
-            className="group bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-xl overflow-hidden shadow-xl border border-gray-700/50 hover:border-blue-400/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/10"
+            className="group bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-xl overflow-hidden shadow-xl border border-gray-700/50 hover:border-blue-400/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/10 relative"
             style={{ animationDelay: `${index * 150}ms` }}
         >
+            {/* Status Badges */}
+            <div className="absolute top-3 left-3 z-10 flex gap-2">
+                {isFeatured && (
+                    <span className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white text-xs px-3 py-1 rounded-full font-semibold shadow-lg flex items-center gap-1">
+                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        Featured
+                    </span>
+                )}
+                {isLive && (
+                    <span className="bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs px-3 py-1 rounded-full font-semibold shadow-lg flex items-center gap-1">
+                        <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                        Live
+                    </span>
+                )}
+            </div>
+            
             <div className="h-48 overflow-hidden relative">
                 <img 
                     src={project.imageUrl} 
                     alt={project.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                
+                {/* Hover overlay with quick stats */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+                    <div className="bg-black/50 backdrop-blur-sm rounded-lg p-4 text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <div className="flex items-center justify-center gap-4 text-white text-sm">
+                            <div className="flex items-center gap-1">
+                                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                </svg>
+                                <span>{project.technologies.length} Tech</span>
+                            </div>
+                            {project.features && (
+                                <div className="flex items-center gap-1">
+                                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                                    </svg>
+                                    <span>{project.features.length} Features</span>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className="p-6 text-white">
-                <h3 className="text-xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 group-hover:from-blue-300 group-hover:to-purple-300 transition-all duration-300">
-                    {project.title}
-                </h3>
+                <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 group-hover:from-blue-300 group-hover:to-purple-300 transition-all duration-300 flex-1">
+                        {project.title}
+                    </h3>
+                    {(project.startDate || project.endDate) && (
+                        <div className="text-xs text-gray-400 bg-gray-700/30 px-2 py-1 rounded-full ml-3 whitespace-nowrap">
+                            <svg className="w-3 h-3 inline mr-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+                            </svg>
+                            {project.startDate} {project.endDate && project.startDate ? '- ' : ''} {project.endDate}
+                        </div>
+                    )}
+                </div>
+                
                 <p className="text-gray-300 mb-4 line-clamp-2">{project.description}</p>
                 
+                {/* Feature Highlights */}
+                {project.features && project.features.length > 0 && (
+                    <div className="mb-4">
+                        <h4 className="text-sm font-semibold text-gray-400 mb-2 flex items-center gap-1">
+                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                            Key Features:
+                        </h4>
+                        <div className="space-y-1">
+                            {project.features.slice(0, 2).map((feature, featureIndex) => (
+                                <div key={featureIndex} className="flex items-start gap-2 text-xs text-gray-300">
+                                    <svg className="w-3 h-3 mt-0.5 text-green-400 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                                    </svg>
+                                    <span className="line-clamp-1">{feature}</span>
+                                </div>
+                            ))}
+                            {project.features.length > 2 && (
+                                <div className="text-xs text-gray-400 ml-5">
+                                    +{project.features.length - 2} more features
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                )}
+                
                 <div className="mb-4">
-                    <h4 className="text-sm font-semibold text-gray-400 mb-2">Technologies:</h4>
+                    <h4 className="text-sm font-semibold text-gray-400 mb-2 flex items-center gap-1">
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        Technologies:
+                    </h4>
                     <div className="flex flex-wrap gap-2">
                         {project.technologies.slice(0, 4).map((tech, techIndex) => (
                             <span 
