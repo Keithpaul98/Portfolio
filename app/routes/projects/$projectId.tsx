@@ -103,7 +103,7 @@ export default function ProjectDetail() {
     }
     
     return (
-        <main className="pt-16 p-4 container mx-auto min-h-screen">
+        <main className="pt-24 p-4 container mx-auto min-h-screen">
             <div className="mb-6">
                 <Link 
                     to="/projects"

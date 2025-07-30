@@ -10,7 +10,7 @@ export function Welcome() {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
 
-      <div className="relative z-10 flex items-center justify-center min-h-screen pt-16 pb-4">
+      <div className="relative z-10 flex items-center justify-center min-h-screen pt-24 pb-4">
         <div className="flex-1 flex flex-col items-center gap-12 min-h-0 max-w-6xl mx-auto px-4">
           
           {/* Hero Section */}
