@@ -45,7 +45,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                         <div className="flex items-center justify-center gap-4 text-white text-sm">
                             <div className="flex items-center gap-1">
                                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 2C6.48 2 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                                 </svg>
                                 <span>{project.technologies.length} Tech</span>
                             </div>
@@ -250,30 +250,32 @@ export default function ProjectsIndex() {
                     </div>
                 </div>
 
-                {/* Enhanced Search and Filter Section */}
-                <div className="mb-16 max-w-5xl mx-auto">
-                    <div className="bg-gray-800/30 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 shadow-2xl">
-                        <div className="flex items-center gap-3 mb-6">
-                            <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
-                                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
+                {/* Enhanced Search and Filter Section with Mobile Optimization */}
+                <div className="mb-16 max-w-5xl mx-auto px-4 sm:px-0">
+                    <div className="bg-gray-800/30 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-4 sm:p-6 shadow-2xl">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6">
+                            <div className="flex items-center gap-3">
+                                <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+                                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                </div>
+                                <h2 className="text-lg sm:text-xl font-semibold text-white">Find Your Project</h2>
                             </div>
-                            <h2 className="text-xl font-semibold text-white">Find Your Project</h2>
                             <div className="flex-1"></div>
-                            <div className="text-sm text-gray-400">
+                            <div className="text-sm text-gray-400 bg-gray-700/30 px-3 py-1 rounded-full">
                                 {filteredProjects.length} of {projects.length} projects
                             </div>
                         </div>
                         
-                        <div className="flex flex-col lg:flex-row gap-4">
+                        <div className="flex flex-col gap-4">
                             <div className="flex-1 relative group">
                                 <input
                                     type="text"
                                     placeholder="Search by name, description, or technology..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="w-full pl-12 pr-6 py-4 bg-gray-900/50 backdrop-blur-sm border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400/70 focus:ring-2 focus:ring-blue-400/20 transition-all duration-300 group-hover:border-gray-500/70"
+                                    className="w-full pl-12 pr-12 py-4 bg-gray-900/50 backdrop-blur-sm border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400/70 focus:ring-2 focus:ring-blue-400/20 transition-all duration-300 group-hover:border-gray-500/70 text-base"
                                 />
                                 <svg className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 group-hover:text-gray-300 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -281,48 +283,51 @@ export default function ProjectsIndex() {
                                 {searchTerm && (
                                     <button
                                         onClick={() => setSearchTerm("")}
-                                        className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 hover:text-white transition-colors duration-300"
+                                        className="absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400 hover:text-white transition-colors duration-300 flex items-center justify-center"
                                     >
-                                        <svg fill="currentColor" viewBox="0 0 24 24">
+                                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                                             <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
                                         </svg>
                                     </button>
                                 )}
                             </div>
                             
-                            <div className="relative group min-w-[240px]">
-                                <svg className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none group-hover:text-gray-300 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/>
-                                </svg>
-                                <select
-                                    value={selectedTech}
-                                    onChange={(e) => setSelectedTech(e.target.value)}
-                                    className="w-full pl-12 pr-6 py-4 bg-gray-900/50 backdrop-blur-sm border border-gray-600/50 rounded-xl text-white focus:outline-none focus:border-blue-400/70 focus:ring-2 focus:ring-blue-400/20 transition-all duration-300 appearance-none cursor-pointer group-hover:border-gray-500/70"
-                                >
-                                    <option value="">All Technologies</option>
-                                    {allTechnologies.map((tech) => (
-                                        <option key={tech} value={tech}>{tech}</option>
-                                    ))}
-                                </select>
-                                <svg className="absolute right-4 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M7 10l5 5 5-5z"/>
-                                </svg>
-                            </div>
-                            
-                            {(searchTerm || selectedTech) && (
-                                <button
-                                    onClick={() => {
-                                        setSearchTerm("");
-                                        setSelectedTech("");
-                                    }}
-                                    className="px-6 py-4 bg-gradient-to-r from-red-600/20 to-pink-600/20 border border-red-500/50 hover:border-red-400/70 text-red-400 hover:text-red-300 rounded-xl font-medium transition-all duration-300 transform hover:scale-105 flex items-center gap-2 whitespace-nowrap"
-                                >
-                                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                            <div className="flex flex-col sm:flex-row gap-4">
+                                <div className="relative group flex-1 sm:max-w-xs">
+                                    <svg className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none group-hover:text-gray-300 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/>
                                     </svg>
-                                    Clear Filters
-                                </button>
-                            )}
+                                    <select
+                                        value={selectedTech}
+                                        onChange={(e) => setSelectedTech(e.target.value)}
+                                        className="w-full pl-12 pr-10 py-4 bg-gray-900/50 backdrop-blur-sm border border-gray-600/50 rounded-xl text-white focus:outline-none focus:border-blue-400/70 focus:ring-2 focus:ring-blue-400/20 transition-all duration-300 appearance-none cursor-pointer group-hover:border-gray-500/70 text-base"
+                                    >
+                                        <option value="">All Technologies</option>
+                                        {allTechnologies.map((tech) => (
+                                            <option key={tech} value={tech}>{tech}</option>
+                                        ))}
+                                    </select>
+                                    <svg className="absolute right-4 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M7 10l5 5 5-5z"/>
+                                    </svg>
+                                </div>
+                                
+                                {(searchTerm || selectedTech) && (
+                                    <button
+                                        onClick={() => {
+                                            setSearchTerm("");
+                                            setSelectedTech("");
+                                        }}
+                                        className="px-6 py-4 bg-gradient-to-r from-red-600/20 to-pink-600/20 border border-red-500/50 hover:border-red-400/70 text-red-400 hover:text-red-300 rounded-xl font-medium transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center justify-center gap-2 whitespace-nowrap min-h-[56px]"
+                                    >
+                                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                                        </svg>
+                                        <span className="hidden sm:inline">Clear Filters</span>
+                                        <span className="sm:hidden">Clear</span>
+                                    </button>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
