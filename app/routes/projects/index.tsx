@@ -46,8 +46,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 <div className="flex gap-3 mt-6">
                     <Link 
                         to={`/projects/${project.id}`}
-                        className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105 text-center group-hover:shadow-lg group-hover:shadow-blue-500/25"
+                        className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105 text-center group-hover:shadow-lg group-hover:shadow-blue-500/25 flex items-center justify-center gap-2"
                     >
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                        </svg>
                         View Details
                     </Link>
                     {project.liveUrl && (
@@ -55,8 +58,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                             href={project.liveUrl} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="px-4 py-2 border-2 border-green-600 hover:bg-green-600 text-green-400 hover:text-white rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105"
+                            className="px-4 py-2 border-2 border-green-600 hover:bg-green-600 text-green-400 hover:text-white rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
                         >
+                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                            </svg>
                             Live Demo
                         </a>
                     )}
@@ -65,8 +71,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                             href={project.githubUrl} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="px-4 py-2 border-2 border-gray-600 hover:border-gray-400 text-gray-400 hover:text-white rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105"
+                            className="px-4 py-2 border-2 border-gray-600 hover:border-gray-400 text-gray-400 hover:text-white rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
                         >
+                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
                             GitHub
                         </a>
                     )}
@@ -127,16 +136,21 @@ export default function ProjectsIndex() {
                             </svg>
                         </div>
                         
-                        <select
-                            value={selectedTech}
-                            onChange={(e) => setSelectedTech(e.target.value)}
-                            className="px-6 py-3 bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl text-white focus:outline-none focus:border-blue-400/50 focus:ring-2 focus:ring-blue-400/20 transition-all duration-300 min-w-[200px]"
-                        >
-                            <option value="">All Technologies</option>
-                            {allTechnologies.map((tech) => (
-                                <option key={tech} value={tech}>{tech}</option>
-                            ))}
-                        </select>
+                        <div className="relative">
+                            <svg className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/>
+                            </svg>
+                            <select
+                                value={selectedTech}
+                                onChange={(e) => setSelectedTech(e.target.value)}
+                                className="pl-12 pr-6 py-3 bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl text-white focus:outline-none focus:border-blue-400/50 focus:ring-2 focus:ring-blue-400/20 transition-all duration-300 min-w-[200px] appearance-none"
+                            >
+                                <option value="">All Technologies</option>
+                                {allTechnologies.map((tech) => (
+                                    <option key={tech} value={tech}>{tech}</option>
+                                ))}
+                            </select>
+                        </div>
                     </div>
 
                     {/* Results count */}
