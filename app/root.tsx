@@ -138,6 +138,16 @@ function Navigation() {
                 <span className="font-medium text-sm lg:text-base">Home</span>
               </Link>
               <Link 
+                to="/about" 
+                onClick={handleNavClick}
+                className={`${isActive('/about')} ${isActiveBackground('/about')} flex items-center space-x-2 px-4 lg:px-6 py-2.5 rounded-xl transition-all duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-blue-500/10 hover:via-purple-500/10 hover:to-cyan-500/10 hover:border-blue-400/20 border border-transparent transform cursor-pointer relative z-20 group`}
+              >
+                <svg className="w-5 h-5 transition-all duration-300 group-hover:text-blue-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+                <span className="font-medium text-sm lg:text-base">About</span>
+              </Link>
+              <Link 
                 to="/projects" 
                 onClick={handleNavClick}
                 className={`${isActive('/projects')} ${isActiveBackground('/projects')} flex items-center space-x-2 px-4 lg:px-6 py-2.5 rounded-xl transition-all duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-blue-500/10 hover:via-purple-500/10 hover:to-cyan-500/10 hover:border-blue-400/20 border border-transparent transform cursor-pointer relative z-20 group`}
@@ -222,6 +232,22 @@ function Navigation() {
                 <div className="flex-1">
                   <span className="font-medium text-base">Home</span>
                   <p className="text-sm text-gray-400 mt-0.5">Welcome & Overview</p>
+                </div>
+              </Link>
+
+              <Link 
+                to="/about" 
+                onClick={handleNavClick}
+                className="flex items-center space-x-4 px-4 py-4 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-500/10 hover:via-purple-500/10 hover:to-cyan-500/10 hover:border-blue-400/20 border border-transparent group"
+              >
+                <div className="w-10 h-10 rounded-lg bg-gray-800/50 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors duration-300">
+                  <svg className="w-5 h-5 transition-all duration-300 group-hover:text-blue-300" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <span className="font-medium text-base">About</span>
+                  <p className="text-sm text-gray-400 mt-0.5">Education & Skills</p>
                 </div>
               </Link>
 

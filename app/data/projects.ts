@@ -17,35 +17,36 @@ export interface Project {
 // Sample project data
 export const projects: Project[] = [
     {
-        id: "portfolio",
-        title: "Personal Portfolio Website",
-        description: "A modern, production-ready portfolio website with real contact functionality, professional branding, and responsive design built with React Router v7 and TypeScript.",
-        technologies: ["React", "TypeScript", "Tailwind CSS", "React Router v7", "Vite", "EmailJS", "SVG"],
-        imageUrl: "/images/port.png",
-        githubUrl: "https://github.com/Keithpaul98/Portfolio",
+        id: "swiftbudget",
+        title: "SwiftBudget - Personal Budgeting App",
+        description: "🟢 Status: Live Beta | A lightweight, responsive web application for personal and household budgeting with real-time financial tracking and visualization.",
+        technologies: ["Flask", "Python", "PostgreSQL", "SQLAlchemy", "Bootstrap 5", "Chart.js", "Cloudinary", "Gunicorn"],
+        imageUrl: "/images/swiftbudget.png",
+        liveUrl: "https://swiftbudget.onrender.com",
+        githubUrl: "https://github.com/Keithpaul98/SwiftBudget",
         features: [
-            "Fully functional contact form with EmailJS integration",
-            "Real email delivery to professional email address",
-            "WhatsApp integration for international clients (+265 99 333 1804)",
-            "Professional headshot and personal branding",
-            "Custom logo system with full and compact variants",
-            "Custom favicon with proper browser tab display",
-            "Modern glassmorphism design with gradients and animations",
-            "Responsive design optimized for all devices",
-            "Professional footer with social media links",
-            "React Router v7 + React 19 compatibility",
-            "Production build optimization with SSR support",
-            "Environment variable security configuration",
-            "Comprehensive documentation and deployment guide",
-            "Vercel deployment ready with performance optimization"
+            "User Authentication: Secure signup/login with bcrypt password hashing",
+            "User Profiles: Profile picture uploads via Cloudinary CDN",
+            "Transaction Management: Full CRUD operations for income and expenses",
+            "Smart Categorization: Default categories + custom user categories",
+            "Budget Goals: Monthly/weekly/yearly budget limits with threshold alerts",
+            "Projects/Tags: Group related transactions for better organization",
+            "Interactive Dashboard: Real-time balance, spending trends, and visual charts",
+            "Email Notifications: Budget alerts and welcome emails via Gmail SMTP",
+            "Advanced Features: Quantity/unit price tracking, soft deletes, audit trails",
+            "Malawi Kwacha Support: Full MK currency integration",
+            "Auto-dismissing Alerts: Flash messages automatically fade after 4 seconds",
+            "MVC + Service Layer: Framework-agnostic business logic for future migrations",
+            "80%+ Test Coverage: Comprehensive unit and integration tests",
+            "Production Deployment: Live on Render.com with PostgreSQL database"
         ],
-        longDescription: "This portfolio website represents a complete, production-ready web application showcasing modern full-stack development skills. Built with React Router v7 and TypeScript, it features real-world functionality including a working contact form that sends emails via EmailJS, WhatsApp integration for international client communication, and professional branding elements. The site demonstrates expertise in modern web technologies, responsive design principles, and production deployment practices. Key technical achievements include React Router v7 + React 19 compatibility resolution, comprehensive environment variable security, and optimized build performance with both client and server-side rendering support.",
-        startDate: "July 2025",
-        endDate: "July 2025"
+        longDescription: "SwiftBudget is a production-ready personal and household budgeting application built with Flask and PostgreSQL. The application follows MVC architecture with a service layer pattern, enabling framework-agnostic business logic that facilitates future migrations. Key features include secure user authentication with bcrypt, full transaction CRUD operations, smart categorization with custom categories, budget goals with email alerts, and an interactive dashboard with Chart.js visualizations. The application demonstrates advanced Flask development with SQLAlchemy ORM, Flask-Login for session management, Flask-WTF for CSRF protection, and Cloudinary CDN integration for profile images. Deployed on Render.com with automated CI/CD from GitHub, the application includes comprehensive documentation covering system requirements, architecture, database design, API specifications, security, and testing strategies. With 80%+ test coverage and OWASP Top 10 mitigations, SwiftBudget showcases production-grade development practices including HTTPS, CSP headers, SQL injection prevention, and XSS protection.",
+        startDate: "January 2026",
+        endDate: "March 2026"
     },
     {
         id: "habit-tracker",
-        title: "Habit Tracker",
+        title: "Habit Tracker V1.0",
         description: "A comprehensive habit tracking application to help users build and maintain positive daily habits.",
         technologies: ["Flutter", "Dart", "Shared Preferences"],
         imageUrl: "/images/habit_tracker.jpg",
@@ -62,9 +63,9 @@ export const projects: Project[] = [
             "Drag and Drop Reordering: Manually arrange habits in your preferred order",
             "Data Persistence: All habits and settings are saved between app sessions   "
         ],
-        longDescription: "The Habit Tracker is a flutter mobile application designed to help users develop and maintain positive daily habits. Users can create custom habits, track their daily progress, and view their streaks and completion rates over time. The application features an intuitive interface with visual progress indicators, making it easy to stay motivated and see improvement patterns. Built with React and utilizing local storage for data persistence, it provides a seamless experience across sessions.",
+        longDescription: "The Habit Tracker is a Flutter mobile application designed to help users develop and maintain positive daily habits. Users can create custom habits, track their daily progress, and view their streaks and completion rates over time. The application features an intuitive interface with visual progress indicators, making it easy to stay motivated and see improvement patterns. Built with Flutter and Dart, utilizing Shared Preferences for data persistence, it provides a seamless experience across sessions.",
         startDate: "June 2025",
-        endDate: "Present"
+        endDate: "June 2025"
     },
     {
         id: "hairstyling-system",

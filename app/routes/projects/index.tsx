@@ -243,8 +243,8 @@ export default function ProjectsIndex() {
                             <div className="hidden sm:block w-px h-8 bg-gray-600"></div>
                             <div className="block sm:hidden w-8 h-px bg-gray-600"></div>
                             <div className="text-center">
-                                <div className="text-2xl md:text-3xl font-bold text-cyan-400">{projects.filter(p => p.liveUrl).length}</div>
-                                <div className="text-sm text-gray-400">Live Projects</div>
+                                <div className="text-2xl md:text-3xl font-bold text-cyan-400">{projects.reduce((acc, p) => acc + (p.features?.length || 0), 0)}+</div>
+                                <div className="text-sm text-gray-400">Features Built</div>
                             </div>
                         </div>
                     </div>
