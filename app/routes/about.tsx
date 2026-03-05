@@ -17,8 +17,8 @@ export default function About() {
             </h1>
             <div className="h-1 w-32 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto rounded-full mb-6"></div>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              A passionate full-stack developer dedicated to building innovative solutions 
-              that make a difference.
+              A Software Developer & Systems Analyst focused on bridging the gap between 
+              complex business requirements and high-performance technical solutions.
             </p>
           </div>
 
@@ -42,11 +42,11 @@ export default function About() {
                     BSc (Hons) Computing (Information Systems)
                   </h3>
                   <p className="text-purple-400 font-semibold mb-2">University of Greenwich</p>
-                  <p className="text-gray-400 mb-3">Graduated 2024</p>
+                  <p className="text-gray-400 mb-3">Class of 2025</p>
                   <p className="text-gray-300 leading-relaxed">
-                    Comprehensive study in software development, database systems, web technologies, 
-                    and information systems management. Specialized in full-stack development with 
-                    focus on modern frameworks and AI integration.
+                    Focused on the intersection of technical engineering and organizational needs. 
+                    Specialized in Requirements Management, Database Administration, and Information 
+                    Systems Analysis to build software that solves real-world operational challenges.
                   </p>
                 </div>
               </div>
@@ -60,7 +60,7 @@ export default function About() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                   </svg>
                 </div>
-                <h2 className="text-3xl font-bold text-white">Certifications & Achievements</h2>
+                <h2 className="text-3xl font-bold text-white">Professional Development</h2>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
@@ -72,8 +72,8 @@ export default function About() {
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold text-white mb-2">Honours Degree</h3>
-                      <p className="text-gray-400 text-sm">BSc Computing (Information Systems) with Honours from University of Greenwich</p>
+                      <h3 className="text-lg font-bold text-white mb-2">Data Science</h3>
+                      <p className="text-gray-400 text-sm">Cisco Networking Academy: Introduction to Data Science</p>
                     </div>
                   </div>
                 </div>
@@ -86,8 +86,8 @@ export default function About() {
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold text-white mb-2">Full-Stack Development</h3>
-                      <p className="text-gray-400 text-sm">Proficient in React, Django, Flutter, and modern web technologies</p>
+                      <h3 className="text-lg font-bold text-white mb-2">Cybersecurity</h3>
+                      <p className="text-gray-400 text-sm">Cisco Networking Academy: Introduction to Cybersecurity</p>
                     </div>
                   </div>
                 </div>
@@ -100,8 +100,8 @@ export default function About() {
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold text-white mb-2">AI & Machine Learning</h3>
-                      <p className="text-gray-400 text-sm">Experience with PyTorch, OpenCV, and AI-powered applications</p>
+                      <h3 className="text-lg font-bold text-white mb-2">Computer Vision</h3>
+                      <p className="text-gray-400 text-sm">Experience in real-time landmark tracking using MediaPipe and OpenCV</p>
                     </div>
                   </div>
                 </div>
@@ -114,8 +114,8 @@ export default function About() {
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold text-white mb-2">Database Management</h3>
-                      <p className="text-gray-400 text-sm">PostgreSQL, MySQL, and data modeling expertise</p>
+                      <h3 className="text-lg font-bold text-white mb-2">System Analysis</h3>
+                      <p className="text-gray-400 text-sm">Proficient in UML modeling, ERDs, and Requirements Engineering</p>
                     </div>
                   </div>
                 </div>
@@ -130,15 +130,15 @@ export default function About() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                   </svg>
                 </div>
-                <h2 className="text-3xl font-bold text-white">Technical Skills</h2>
+                <h2 className="text-3xl font-bold text-white">Technical Ecosystem</h2>
               </div>
 
               <div className="grid md:grid-cols-3 gap-8">
-                {/* Frontend */}
+                {/* Frontend & Mobile */}
                 <div>
-                  <h3 className="text-xl font-bold text-blue-400 mb-4">Frontend</h3>
+                  <h3 className="text-xl font-bold text-blue-400 mb-4">Frontend & Mobile</h3>
                   <div className="space-y-3">
-                    {["React", "TypeScript", "JavaScript", "Tailwind CSS", "HTML5/CSS3", "Responsive Design"].map((skill) => (
+                    {["React & TypeScript", "Flutter & Dart", "Tailwind CSS", "Bootstrap 5", "Responsive Design", "Jinja2 Templates"].map((skill) => (
                       <div key={skill} className="flex items-center gap-3">
                         <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
                         <span className="text-gray-300">{skill}</span>
@@ -147,11 +147,11 @@ export default function About() {
                   </div>
                 </div>
 
-                {/* Backend */}
+                {/* Backend & Data */}
                 <div>
-                  <h3 className="text-xl font-bold text-purple-400 mb-4">Backend</h3>
+                  <h3 className="text-xl font-bold text-purple-400 mb-4">Backend & Data</h3>
                   <div className="space-y-3">
-                    {["Django", "Python", "Flask", "PostgreSQL", "REST APIs", "Authentication"].map((skill) => (
+                    {["Python (Flask / Django)", "PostgreSQL & MySQL", "SQLAlchemy ORM", "REST API Design", "Data Analysis", "Unit Testing (PyTest)"].map((skill) => (
                       <div key={skill} className="flex items-center gap-3">
                         <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
                         <span className="text-gray-300">{skill}</span>
@@ -160,11 +160,11 @@ export default function About() {
                   </div>
                 </div>
 
-                {/* Mobile & Tools */}
+                {/* Analysis & Infrastructure */}
                 <div>
-                  <h3 className="text-xl font-bold text-cyan-400 mb-4">Mobile & Tools</h3>
+                  <h3 className="text-xl font-bold text-cyan-400 mb-4">Analysis & DevOps</h3>
                   <div className="space-y-3">
-                    {["Flutter", "Dart", "Git/GitHub", "Docker", "Vite", "React Router"].map((skill) => (
+                    {["Systems Analysis", "Requirements Management", "UML & Database Design", "Git/GitHub", "Render & Netlify", "Docker Fundamentals"].map((skill) => (
                       <div key={skill} className="flex items-center gap-3">
                         <div className="w-2 h-2 bg-cyan-400 rounded-full"></div>
                         <span className="text-gray-300">{skill}</span>
@@ -177,17 +177,19 @@ export default function About() {
 
             {/* Personal Statement */}
             <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-sm border border-blue-500/30 rounded-2xl p-8 animate-fade-in-up">
-              <h2 className="text-2xl font-bold text-white mb-4">Why I Code</h2>
+              <h2 className="text-2xl font-bold text-white mb-4">The Analyst Approach</h2>
               <p className="text-gray-300 leading-relaxed mb-4">
-                I'm driven by the challenge of turning complex problems into elegant, user-friendly solutions. 
-                With a strong foundation in both frontend and backend development, I specialize in creating 
-                full-stack applications that not only work flawlessly but also provide exceptional user experiences.
+                I don’t just write code; I design systems. My background in Information Systems 
+                taught me that the most elegant code is useless if it doesn’t align with 
+                organizational goals. I specialize in the full software development lifecycle, 
+                from initial requirements gathering and UML modeling to deployment and 
+                continuous testing.
               </p>
               <p className="text-gray-300 leading-relaxed">
-                My approach combines technical expertise with creative problem-solving. Whether it's building 
-                AI-powered features, designing intuitive interfaces, or architecting scalable systems, I'm 
-                committed to delivering quality code and innovative solutions. I'm eager to bring my skills 
-                to challenging projects and continue growing as a developer.
+                Whether I am building a full-stack budgeting application in Flask or 
+                architecting a mobile habit tracker in Flutter, my goal is always 
+                operational integrity. I believe in modular design, robust documentation, 
+                and building security into the foundation of every project I touch.
               </p>
             </div>
 
@@ -201,7 +203,7 @@ export default function About() {
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
-                Download Full CV
+                Download Updated CV
               </a>
             </div>
           </div>
