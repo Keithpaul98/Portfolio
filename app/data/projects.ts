@@ -22,6 +22,13 @@ export const projects: Project[] = [
         description: "🟢 Status: Live Beta | A lightweight, responsive web application for personal and household budgeting with real-time financial tracking and visualization.",
         technologies: ["Flask", "Python", "PostgreSQL", "SQLAlchemy", "Bootstrap 5", "Chart.js", "Cloudinary", "Gunicorn"],
         imageUrl: "/images/swiftbudget.png",
+        images: [
+            "https://res.cloudinary.com/dszhg6iac/image/upload/v1772719151/Final_Dash_r9qpyc.png",
+            "https://res.cloudinary.com/dszhg6iac/image/upload/v1772719151/transactions_op7kqp.png",
+            "https://res.cloudinary.com/dszhg6iac/image/upload/v1772719151/group_ucb964.png",
+            "https://res.cloudinary.com/dszhg6iac/image/upload/v1772719151/Budget_Goals_lko4ti.png",
+            "https://res.cloudinary.com/dszhg6iac/image/upload/v1772719150/projects_xh4hqu.png"
+        ],
         liveUrl: "https://swiftbudget.onrender.com",
         githubUrl: "https://github.com/Keithpaul98/SwiftBudget",
         features: [
