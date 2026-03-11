@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 export default function About() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 relative overflow-hidden">

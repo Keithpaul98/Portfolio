@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 
 export default function Contact() {
@@ -11,6 +11,16 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+
+  useEffect(() => {
+    if (submitStatus !== "idle") {
+      const timer = setTimeout(() => {
+        setSubmitStatus("idle");
+      }, 4000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [submitStatus]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -44,7 +54,7 @@ export default function Contact() {
         message: formData.message
       };
 
-      const response = await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      const response = await emailjs.send(serviceId, templateId, templateParams);
       
       if (response.status === 200) {
         setSubmitStatus("success");
