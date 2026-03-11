@@ -146,7 +146,7 @@ export default function About() {
                     ))}
                   </div>
                 </div>
-
+                
                 {/* Backend & Data */}
                 <div>
                   <h3 className="text-xl font-bold text-purple-400 mb-4">Backend & Data</h3>
