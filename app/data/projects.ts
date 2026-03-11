@@ -29,8 +29,8 @@ export const projects: Project[] = [
             "https://res.cloudinary.com/dszhg6iac/image/upload/v1773255023/projects_tqgqww.png",
             "https://res.cloudinary.com/dszhg6iac/image/upload/v1773255022/Profile_n1um2y.png"
         ],
-        liveUrl: "https://swiftbudget.onrender.com",
-        githubUrl: "https://github.com/Keithpaul98/SwiftBudget",
+        liveUrl: "https://swiftbudget.netlify.app/",
+        githubUrl: "https://github.com/Keithpaul98/Swift_Budget",
         features: [
             "Transaction Management: Add, edit, delete income/expense records with search, type/date filters, and pagination",
             "Category System: 17 pre-loaded categories + custom categories with duplicate prevention",
@@ -50,7 +50,7 @@ export const projects: Project[] = [
             "23 Unit Tests: Vitest + Testing Library for currency formatting, constants, and audit logging"
         ],
         longDescription: "SwiftBudget is a modern personal finance application built with Next.js 16, React 19, TypeScript, and Supabase PostgreSQL. Migrated from the original Flask application to leverage modern React architecture, the app features comprehensive transaction management with search, filters, and pagination, a robust category system with 17 defaults plus custom categories, budget goals with visual progress tracking, and project-based transaction grouping. The dashboard provides financial insights through Recharts visualizations with monthly navigation and summary statistics. Security is paramount with Supabase Row Level Security ensuring database-level data isolation, session timeout after 30 minutes of inactivity, rate limiting on login (5 attempts) and contact form (3/min), 7 security headers (CSP, HSTS, X-Frame-Options), and comprehensive audit logging. The application demonstrates advanced Next.js development with the App Router, React Server Components, middleware for authentication and route guards, server-side API routes for email (EmailJS), and shadcn/ui v4 components with Tailwind CSS v4. Deployed on Netlify with automated CI/CD from GitHub, the project includes 23 unit tests (Vitest), comprehensive documentation (ARCHITECTURE.md, DOCUMENTATION.md), and a 7-table database schema with check constraints and foreign keys. The tech stack showcases production-grade practices including TypeScript type safety, error boundaries, loading skeletons, toast notifications, real-time password validation feedback, and CSV export functionality. Future enhancements include recurring transactions UI, multi-currency support, offline capabilities, and real-time multi-device sync.",
-        startDate: "January 2026",
+        startDate: "February 2026",
         endDate: "March 2026"
     },
     {
